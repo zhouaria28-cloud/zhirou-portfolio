@@ -126,8 +126,10 @@ ensureDir(deployRoot);
 let html = fs.readFileSync(path.join(sourceRoot, "index.html"), "utf8");
 fs.writeFileSync(path.join(deployRoot, "index.html"), html);
 
+copyFile("package.json");
 copyFile("scripts/build-journeys-index.mjs");
 copyFile("scripts/build-portraits-index.mjs");
+copyFile("scripts/compress-assets.mjs");
 copyFile("scripts/build-vercel-deploy.mjs");
 
 const directAssets = [

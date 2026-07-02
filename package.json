@@ -1,0 +1,12 @@
+{
+  "name": "zhirou-interactive-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compress:assets": "node scripts/compress-assets.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}

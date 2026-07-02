@@ -62,6 +62,34 @@
       display: none !important;
     }
 
+    .audio-consent-button {
+      position: fixed;
+      right: clamp(18px, 2.4vw, 34px);
+      bottom: clamp(18px, 2.4vw, 34px);
+      z-index: 150;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 50%;
+      color: rgba(255,255,255,.78);
+      background: rgba(5,8,16,.28);
+      backdrop-filter: blur(14px) saturate(130%);
+      box-shadow: 0 14px 34px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.08);
+      font-size: 16px;
+      line-height: 1;
+      transition: transform 320ms cubic-bezier(.19,1,.22,1), border-color 320ms ease, background 320ms ease, color 320ms ease;
+    }
+
+    .audio-consent-button:hover,
+    .audio-consent-button.is-on {
+      color: #fff;
+      border-color: rgba(255,255,255,.42);
+      background: rgba(255,255,255,.09);
+      transform: translateY(-2px);
+    }
+
     .stage {
       min-height: 100vh;
     }
@@ -3107,9 +3135,11 @@
 </head>
 
 <body>
+  <button id="audioConsentButton" class="audio-consent-button" type="button" aria-label="Enable ambient audio">🎵</button>
+
   <section id="intro" aria-label="Interactive video intro">
-    <video id="videoOne" class="intro-video" src="assets/intro-1.mov" playsinline autoplay muted></video>
-    <video id="videoTwo" class="intro-video hidden" src="assets/intro-2.mov" playsinline muted></video>
+    <video id="videoOne" class="intro-video" src="assets/intro-1.mov" playsinline autoplay muted preload="none"></video>
+    <video id="videoTwo" class="intro-video hidden" src="assets/intro-2.mov" playsinline muted preload="none"></video>
     <div class="intro-vignette"></div>
 
     <button id="introSkip" class="intro-skip">Skip intro</button>
@@ -3167,8 +3197,8 @@
       </p>
     </section>
 
-    <section id="works" class="view" aria-label="Journeys globe">
-      <video class="works-bg-video" src="assets/works-space-bg.mov" autoplay muted loop playsinline></video>
+  <section id="works" class="view" aria-label="Journeys globe">
+      <video class="works-bg-video" src="assets/works-space-bg.mov" autoplay muted loop playsinline preload="none"></video>
       <canvas id="worksParticles" class="works-particles" aria-hidden="true"></canvas>
       <nav class="works-nav">
         <button data-target="home">Home</button>
@@ -3184,7 +3214,7 @@
       </div>
 
       <div class="works-cinematic-intro" id="worksCinematicIntro" aria-hidden="true">
-        <video id="worksEntryVideo" class="works-entry-video" src="assets/works-entry-video.mov" playsinline></video>
+        <video id="worksEntryVideo" class="works-entry-video" src="assets/works-entry-video.mov" playsinline preload="none"></video>
         <div class="cinematic-intro-overlay" aria-hidden="true">
           <p class="cinematic-intro-copy">To witness. To experience. To frame.</p>
           <button class="works-skip-intro" id="skipWorksIntro" type="button">[ Skip ]</button>
@@ -3198,7 +3228,7 @@
     </section>
 
     <section id="portraits" class="view" aria-label="Portraits albums">
-      <video class="portraits-bg-video" src="assets/portraits-bg.mov" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+      <video class="portraits-bg-video" src="assets/portraits-bg.mov" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
       <canvas id="portraitsBubbleCursor" class="portraits-bubble-cursor" aria-hidden="true"></canvas>
       <nav class="home-nav" aria-label="Portraits navigation">
         <button data-target="home">Home <small>Main</small></button>
@@ -3339,7 +3369,7 @@
     <div class="documentary-cinema">
       <p class="documentary-kicker">A documentary film by Zhirou Zhou, observing everyday curiosities through people, places, and quiet fragments of city life.</p>
       <div class="documentary-screen">
-        <video id="documentaryVideo" controls playsinline preload="metadata"></video>
+        <video id="documentaryVideo" controls playsinline preload="none"></video>
       </div>
     </div>
   </section>
@@ -3668,8 +3698,10 @@
     const HOME_BG_AUDIO_SRC = USER_ASSETS_LOCKED.media.homeBackgroundAudio;
     const homeBgAudio = new Audio(HOME_BG_AUDIO_SRC);
     homeBgAudio.loop = true;
-    homeBgAudio.preload = "auto";
+    homeBgAudio.preload = "none";
     homeBgAudio.volume = 0;
+    const audioConsentButton = document.getElementById("audioConsentButton");
+    let ambientAudioEnabled = false;
     let homeAudioWanted = false;
     let homeAudioFade = null;
     const RAIN_COLORS = ["#ff77b7", "#ffd84d", "#4cc9ff", "#72f0a2", "#0d1018", "#ffffff", "#9d8cff"];
@@ -3745,8 +3777,10 @@
 
     function startHomeAmbience() {
       homeAudioWanted = true;
+      if (!ambientAudioEnabled) return;
       if (!home.classList.contains("active")) return;
       homeBgAudio.muted = false;
+      homeBgAudio.load();
       if (homeBgAudio.paused) {
         homeBgAudio.volume = 0;
         homeBgAudio.currentTime = 0;
@@ -3767,6 +3801,25 @@
       if (!homeAudioWanted || homeBgAudio.paused) return;
       fadeHomeAudio(homeAmbienceTargetVolume(), 520);
     }
+
+    function playEnabledAmbientForCurrentView() {
+      const current = document.querySelector(".view.active")?.id;
+      if (current === "home") startHomeAmbience();
+      if (current === "works") startWorksMusic();
+    }
+
+    function stopAllAmbientAudio() {
+      stopHomeAmbience();
+      stopWorksMusic();
+    }
+
+    audioConsentButton.addEventListener("click", () => {
+      ambientAudioEnabled = !ambientAudioEnabled;
+      audioConsentButton.classList.toggle("is-on", ambientAudioEnabled);
+      audioConsentButton.setAttribute("aria-label", ambientAudioEnabled ? "Disable ambient audio" : "Enable ambient audio");
+      if (ambientAudioEnabled) playEnabledAmbientForCurrentView();
+      else stopAllAmbientAudio();
+    });
 
     function hexToRgb(hex) {
       const h = hex.replace("#", "");
@@ -4064,18 +4117,13 @@
         rainAudioContext ||= new (window.AudioContext || window.webkitAudioContext)();
         rainAudioContext.resume && rainAudioContext.resume();
       } catch (error) {}
-      if (homeAudioWanted && homeBgAudio.paused) {
+      if (ambientAudioEnabled && homeAudioWanted && homeBgAudio.paused) {
+        homeBgAudio.load();
         homeBgAudio.play()
           .then(() => fadeHomeAudio(homeAmbienceTargetVolume(), 1400))
           .catch(() => {});
       }
     });
-
-    document.addEventListener("pointerdown", () => {
-      if (home.classList.contains("active") && homeBgAudio.paused) {
-        startHomeAmbience();
-      }
-    }, { capture: true });
 
     const characterContainer = document.querySelector(".character-container");
     const characterCloud = document.querySelector(".character-cloud");
@@ -4480,7 +4528,7 @@
       const videos = USER_ASSETS_LOCKED.aboutStreetPhotography || [];
       eventPhotoStage.innerHTML = videos.map((src, index) => `
         <a class="street-video-link" href="${src}" target="_blank" rel="noopener" aria-label="Open street photography video ${index + 1}">
-          <video src="${src}" muted autoplay loop playsinline preload="metadata"></video>
+          <video src="${src}" muted autoplay loop playsinline preload="none"></video>
         </a>
       `).join("");
       eventPhotoOverlay.classList.add("show");
@@ -4784,7 +4832,7 @@
       portraitAlbumMeta.textContent = `${formattedDate} / ${album.media.length} FRAMES`;
       portraitsFlow.innerHTML = album.media.map(media => {
         if (media.type === "video") {
-          return `<figure class="portrait-media"><video src="${media.src}" controls playsinline preload="metadata"></video></figure>`;
+          return `<figure class="portrait-media"><video src="${media.src}" controls playsinline preload="none"></video></figure>`;
         }
         return `<figure class="portrait-media"><img src="${media.src}" alt="" loading="eager" /></figure>`;
       }).join("");
@@ -4893,7 +4941,7 @@
     const worksBlink = document.getElementById("worksBlink");
     const worksMusic = new Audio(USER_ASSETS_LOCKED.media.worksBackgroundMusic);
     worksMusic.loop = true;
-    worksMusic.preload = "auto";
+    worksMusic.preload = "none";
     worksMusic.volume = .256;
     const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
     const WORLD_GEOJSON_URL = "https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json";
@@ -4921,7 +4969,9 @@
     const worksStarParticles = [];
 
     function startWorksMusic() {
+      if (!ambientAudioEnabled) return;
       if (worksMusic.paused) worksMusic.currentTime = 0;
+      worksMusic.load();
       worksMusic.play().catch(() => {});
     }
 
@@ -5655,7 +5705,7 @@
       updateSwiperOrientation(selectedMedia);
       loadDarkroomPreset(selectedMedia);
       if (selectedMedia?.src && isVideoMedia(selectedMedia)) {
-        videoShell.innerHTML = `<video data-media-key="${selectedMedia.src}" src="${selectedMedia.src}" autoplay muted loop playsinline></video>`;
+        videoShell.innerHTML = `<video data-media-key="${selectedMedia.src}" src="${selectedMedia.src}" autoplay muted loop playsinline preload="none"></video>`;
       } else if (selectedMedia?.src) {
         videoShell.innerHTML = `<img data-media-key="${selectedMedia.src}" src="${selectedMedia.src}" alt="${selectedMedia.title || currentCity.name} main image" />`;
       } else {
@@ -5675,7 +5725,7 @@
         card.style.animationDelay = `${displayIndex * 100}ms`;
         card.setAttribute("aria-label", `${slide.title || currentCity.name} slide ${slideIndex + 1}`);
         const thumbMedia = slide.src && isVideoMedia(slide)
-          ? `<video src="${slide.src}" muted playsinline preload="metadata"></video>`
+          ? `<video src="${slide.src}" muted playsinline preload="none"></video>`
           : (slide.src ? `<img src="${slide.src}" alt="${slide.title || currentCity.name} image ${slideIndex + 1}" />` : "");
         card.innerHTML = slide.src
           ? thumbMedia
