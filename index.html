@@ -2623,43 +2623,6 @@
       content: none;
     }
 
-    .portrait-physical-tag {
-      position: absolute;
-      top: -80px;
-      right: -30px;
-      z-index: -1;
-      width: clamp(116px, 11vw, 170px);
-      aspect-ratio: 1 / 1.45;
-      opacity: 0;
-      transform:
-        translateY(40px)
-        translateX(-20px)
-        translateZ(0)
-        scale(.8)
-        rotate(var(--tag-rotation, 0deg));
-      transform-origin: 50% 12%;
-      pointer-events: none;
-      background: transparent;
-      will-change: transform, opacity;
-      transition:
-        opacity 420ms ease,
-        transform 680ms cubic-bezier(.18,1.45,.34,1);
-    }
-
-    .portrait-album-card.tag-shift-right .portrait-physical-tag {
-      right: -78px;
-    }
-
-    .portrait-physical-tag img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      clip-path: inset(1.5px);
-      background: transparent;
-      filter: drop-shadow(2px 10px 15px rgba(0,0,0,.7));
-    }
-
     .portrait-album-card:hover,
     .portrait-album-card.is-hovered {
       z-index: 999 !important;
@@ -2670,19 +2633,6 @@
         rotateX(0deg)
         rotateY(0deg)
         rotateZ(var(--r));
-    }
-
-    .portrait-album-card:hover .portrait-physical-tag,
-    .portrait-album-card.is-hovered .portrait-physical-tag,
-    .portrait-album-card.reveal-name .portrait-physical-tag {
-      z-index: 5;
-      opacity: 1;
-      transform:
-        translateY(-4px)
-        translateX(18px)
-        translateZ(190px)
-        scale(1)
-        rotate(var(--tag-rotation, 0deg));
     }
 
     .portraits-transition {
@@ -4623,61 +4573,8 @@
     let portraitObserver = null;
     let portraitLoopAlbums = [];
     let portraitLoopCycles = 1;
-    const portraitTagAssets = [
-      "assets/portrait-tags/p1.png",
-      "assets/portrait-tags/p2.png",
-      "assets/portrait-tags/p3.png",
-      "assets/portrait-tags/tag-1.png",
-      "assets/portrait-tags/tag-2.png",
-      "assets/portrait-tags/tag-3.png",
-      "assets/portrait-tags/tag-4.png",
-      "assets/portrait-tags/tag-5.png",
-      "assets/portrait-tags/tag-6.png"
-    ];
-    const portraitTagOverrides = {
-      "BOTANICAL RESONANCE VIDEO": "assets/portrait-tags/p1.png",
-      "SEASIDE EDITORIAL": "assets/portrait-tags/p2.png",
-      "CAMPUS VERDURE GRADUATION": "assets/portrait-tags/p3.png",
-      "STATION NOCTURNE": "assets/portrait-tags/p2.png",
-      "ELEGANT SERENDIPITY": "assets/portrait-tags/p1.png"
-    };
     const bubbleParticles = [];
     const bubblePointer = { x: innerWidth * .5, y: innerHeight * .5, active: false, lastEmit: 0 };
-    let bubbleAudioCtx = null;
-    let lastBubbleSoundAt = 0;
-
-    function ensureBubbleAudio() {
-      const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextCtor) return null;
-      if (!bubbleAudioCtx) bubbleAudioCtx = new AudioContextCtor();
-      if (bubbleAudioCtx.state === "suspended") bubbleAudioCtx.resume().catch(() => {});
-      return bubbleAudioCtx;
-    }
-
-    function playBubbleSound() {
-      const now = performance.now();
-      if (now - lastBubbleSoundAt < 420) return;
-      const ctx = ensureBubbleAudio();
-      if (!ctx) return;
-      lastBubbleSoundAt = now;
-      const start = ctx.currentTime;
-      const gain = ctx.createGain();
-      const osc = ctx.createOscillator();
-      const filter = ctx.createBiquadFilter();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(760 + Math.random() * 220, start);
-      osc.frequency.exponentialRampToValueAtTime(1280 + Math.random() * 280, start + .11);
-      filter.type = "highpass";
-      filter.frequency.setValueAtTime(420, start);
-      gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(0.018, start + .018);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + .16);
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(start);
-      osc.stop(start + .18);
-    }
 
     function resizePortraitBubbleCursor() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -4758,23 +4655,10 @@
       return ((value % size) + size) % size;
     }
 
-    function portraitHash(value) {
-      return String(value || "").split("").reduce((sum, char) => ((sum << 5) - sum + char.charCodeAt(0)) | 0, 0);
-    }
-
-    function portraitTagFor(album, index) {
-      const hash = Math.abs(portraitHash(album.id || album.title || index));
-      return {
-        src: portraitTagOverrides[album.title] || portraitTagAssets[hash % portraitTagAssets.length],
-        rotation: (hash % 31) - 15
-      };
-    }
-
     function portraitCardClasses(album) {
       return [
         "portrait-album-card",
-        album.cover ? "" : "no-cover",
-        album.title === "RADIANT FAREWELL GRADUATION" ? "tag-shift-right" : ""
+        album.cover ? "" : "no-cover"
       ].filter(Boolean).join(" ");
     }
 
@@ -4842,20 +4726,15 @@
       }
       portraitLoopAlbums = portraitsAlbums.slice();
       portraitsStage.innerHTML = portraitLoopAlbums.map((album, index) => {
-        const tag = portraitTagFor(album, index);
         const title = escapePortraitText(album.title);
         return `
-        <button class="${portraitCardClasses(album)}" data-album-index="${index}" data-title="${title}" aria-label="${title}" style="--tag-rotation:${tag.rotation}deg">
+        <button class="${portraitCardClasses(album)}" data-album-index="${index}" data-title="${title}" aria-label="${title}">
           ${album.cover ? `<img src="${album.cover}" alt="" loading="lazy" onerror="this.closest('.portrait-album-card').classList.add('no-cover'); this.remove();" />` : `<span class="portrait-cover-placeholder" aria-hidden="true"></span>`}
-          <span class="portrait-physical-tag" aria-hidden="true">
-            <img src="${tag.src}" alt="" loading="lazy" />
-          </span>
         </button>
       `}).join("") + `<div class="portraits-snap-track" aria-hidden="true"></div>`;
       portraitsStage.querySelectorAll(".portrait-album-card").forEach(card => {
         let hoverRestoreTimer = 0;
         card.addEventListener("click", () => openPortraitAlbum(portraitsAlbums[Number(card.dataset.albumIndex)]));
-        card.addEventListener("touchstart", () => card.classList.toggle("reveal-name"), { passive: true });
         card.addEventListener("mouseenter", () => {
           window.clearTimeout(hoverRestoreTimer);
           card.classList.add("is-hovered");
@@ -4937,12 +4816,9 @@
       const now = performance.now();
       if (now - bubblePointer.lastEmit > 18) {
         addBubbleParticle(event.clientX, event.clientY);
-        playBubbleSound();
         bubblePointer.lastEmit = now;
       }
     });
-
-    portraitsSection.addEventListener("pointerdown", ensureBubbleAudio);
 
     portraitsSection.addEventListener("pointerleave", () => {
       bubblePointer.active = false;
