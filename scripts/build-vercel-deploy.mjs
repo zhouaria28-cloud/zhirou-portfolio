@@ -130,6 +130,8 @@ copyFile("package.json");
 copyFile("scripts/build-journeys-index.mjs");
 copyFile("scripts/build-portraits-index.mjs");
 copyFile("scripts/compress-assets.mjs");
+copyFile("scripts/apply-optimized-assets.mjs");
+copyFile("scripts/prune-optimized-originals.mjs");
 copyFile("scripts/build-vercel-deploy.mjs");
 
 const directAssets = [

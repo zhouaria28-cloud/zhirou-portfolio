@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "compress:assets": "node scripts/compress-assets.mjs"
+    "compress:assets": "node scripts/compress-assets.mjs",
+    "optimize:paths": "node scripts/apply-optimized-assets.mjs",
+    "optimize:prune": "node scripts/prune-optimized-originals.mjs"
   },
   "devDependencies": {
     "sharp": "^0.33.5"

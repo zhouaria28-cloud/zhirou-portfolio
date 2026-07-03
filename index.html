@@ -10,10 +10,7 @@
 
     @font-face {
       font-family: "Ananda";
-      src:
-        local("Ananda"),
-        url("assets/Ananda.woff2") format("woff2"),
-        url("assets/Ananda.ttf") format("truetype");
+      src: local("Ananda");
       font-display: swap;
     }
 
@@ -3421,14 +3418,14 @@
         namecard: ""
       },
       aboutImageSlots: {
-        about_student: "assets/about-melbourne-uni-student.jpg",
-        about_consulting: "assets/about-application-operations.jpg",
-        about_media: "assets/about-content-strategist.jpg",
-        about_photo: "assets/about-documentary-photographer.jpg"
+        about_student: "assets-optimized/about-melbourne-uni-student.webp",
+        about_consulting: "assets-optimized/about-application-operations.webp",
+        about_media: "assets-optimized/about-content-strategist.webp",
+        about_photo: "assets-optimized/about-documentary-photographer.webp"
       },
       aboutEventPhotography: [
-        "assets/about-event-photography-1.jpg",
-        "assets/about-event-photography-2.jpg"
+        "assets-optimized/about-event-photography-1.webp",
+        "assets-optimized/about-event-photography-2.webp"
       ],
       aboutStreetPhotography: [
         "https://res.cloudinary.com/jorpvc9a/video/upload/v1782986252/copy_6E7D05CF-3E1C-4831-8BA3-604B050763BC_ylhr0r.mov",
@@ -3904,7 +3901,8 @@
       if (!homeRippleCanvas.width) return;
       const rect = home.getBoundingClientRect();
       const t = homeRippleState.clickLevel / 8;
-      const desired = Math.round(56 * (1 - t) + 12 * t);
+      const desktopPressure = window.innerWidth >= 1100 ? .68 : 1;
+      const desired = Math.round((56 * (1 - t) + 12 * t) * desktopPressure);
       while (homeRippleState.raindrops.length < desired) {
         homeRippleState.raindrops.push(createRainDrop(rect.width || window.innerWidth, rect.height || window.innerHeight, true));
       }
@@ -3993,7 +3991,8 @@
     }
 
     function drawHoverParticles() {
-      if (homeRippleState.frame % 4 === 0 && homeRippleState.hoverParticles.length < 130) {
+      const maxHoverParticles = window.innerWidth >= 1100 ? 72 : 130;
+      if (homeRippleState.frame % 5 === 0 && homeRippleState.hoverParticles.length < maxHoverParticles) {
         createHoverParticle(homeRippleState.mouseX, homeRippleState.mouseY);
       }
       homeRippleState.hoverParticles = homeRippleState.hoverParticles.filter(particle => {
@@ -4014,6 +4013,10 @@
     }
 
     function drawHomeRipple() {
+      if (!home.classList.contains("active")) {
+        requestAnimationFrame(drawHomeRipple);
+        return;
+      }
       const rect = home.getBoundingClientRect();
       const w = rect.width;
       const h = rect.height;
@@ -4261,7 +4264,7 @@
 
     function applySlotImage(slot, src) {
       slot.classList.remove("placeholder");
-      slot.innerHTML = `<img src="${src}" alt="${slot.dataset.slot} custom image" /><span class="gesture-reminder">Hover &amp; Swipe to explore</span>`;
+      slot.innerHTML = `<img src="${src}" alt="${slot.dataset.slot} custom image" loading="lazy" decoding="async" /><span class="gesture-reminder">Hover &amp; Swipe to explore</span>`;
     }
 
     const aboutPhotoStack = document.getElementById("aboutPhotoStack");
@@ -4515,7 +4518,7 @@
 
     function openEventPhotography() {
       const images = USER_ASSETS_LOCKED.aboutEventPhotography || [];
-      eventPhotoStage.innerHTML = images.map((src, index) => `<img src="${src}" alt="Event photography ${index + 1}" loading="eager" />`).join("");
+      eventPhotoStage.innerHTML = images.map((src, index) => `<img src="${src}" alt="Event photography ${index + 1}" loading="lazy" decoding="async" />`).join("");
       eventPhotoOverlay.classList.add("show");
     }
 
@@ -4654,10 +4657,14 @@
 
     function drawPortraitBubbleCursor() {
       const active = portraitsSection.classList.contains("active") && !portraitsSection.classList.contains("album-open");
+      if (!active) {
+        if (bubbleParticles.length) bubbleParticles.length = 0;
+        requestAnimationFrame(drawPortraitBubbleCursor);
+        return;
+      }
       portraitsBubbleCtx.clearRect(0, 0, innerWidth, innerHeight);
-      if (active) {
-        portraitsBubbleCtx.globalCompositeOperation = "source-over";
-        for (let i = bubbleParticles.length - 1; i >= 0; i--) {
+      portraitsBubbleCtx.globalCompositeOperation = "source-over";
+      for (let i = bubbleParticles.length - 1; i >= 0; i--) {
           const p = bubbleParticles[i];
           p.life += 1;
           p.wobble += p.wobbleSpeed;
@@ -4694,7 +4701,6 @@
           portraitsBubbleCtx.beginPath();
           portraitsBubbleCtx.arc(p.x - radius * .32, p.y - radius * .36, Math.max(1, radius * .1), 0, Math.PI * 2);
           portraitsBubbleCtx.fill();
-        }
       }
       requestAnimationFrame(drawPortraitBubbleCursor);
     }
@@ -4777,7 +4783,7 @@
         const title = escapePortraitText(album.title);
         return `
         <button class="${portraitCardClasses(album)}" data-album-index="${index}" data-title="${title}" aria-label="${title}">
-          ${album.cover ? `<img src="${album.cover}" alt="" loading="lazy" onerror="this.closest('.portrait-album-card').classList.add('no-cover'); this.remove();" />` : `<span class="portrait-cover-placeholder" aria-hidden="true"></span>`}
+          ${album.cover ? `<img src="${album.cover}" alt="" loading="lazy" decoding="async" onerror="this.closest('.portrait-album-card').classList.add('no-cover'); this.remove();" />` : `<span class="portrait-cover-placeholder" aria-hidden="true"></span>`}
         </button>
       `}).join("") + `<div class="portraits-snap-track" aria-hidden="true"></div>`;
       portraitsStage.querySelectorAll(".portrait-album-card").forEach(card => {
@@ -4834,7 +4840,7 @@
         if (media.type === "video") {
           return `<figure class="portrait-media"><video src="${media.src}" controls playsinline preload="none"></video></figure>`;
         }
-        return `<figure class="portrait-media"><img src="${media.src}" alt="" loading="eager" /></figure>`;
+        return `<figure class="portrait-media"><img src="${media.src}" alt="" loading="lazy" decoding="async" /></figure>`;
       }).join("");
       portraitAlbumView.scrollTop = 0;
       if (portraitObserver) portraitObserver.disconnect();
@@ -5707,7 +5713,7 @@
       if (selectedMedia?.src && isVideoMedia(selectedMedia)) {
         videoShell.innerHTML = `<video data-media-key="${selectedMedia.src}" src="${selectedMedia.src}" autoplay muted loop playsinline preload="none"></video>`;
       } else if (selectedMedia?.src) {
-        videoShell.innerHTML = `<img data-media-key="${selectedMedia.src}" src="${selectedMedia.src}" alt="${selectedMedia.title || currentCity.name} main image" />`;
+        videoShell.innerHTML = `<img data-media-key="${selectedMedia.src}" src="${selectedMedia.src}" alt="${selectedMedia.title || currentCity.name} main image" loading="lazy" decoding="async" />`;
       } else {
         videoShell.innerHTML = `<div class="curation-video-placeholder">Add subject video<br />16:9 cinematic frame</div>`;
         videoShell.addEventListener("click", pickCityVideo);
@@ -5726,7 +5732,7 @@
         card.setAttribute("aria-label", `${slide.title || currentCity.name} slide ${slideIndex + 1}`);
         const thumbMedia = slide.src && isVideoMedia(slide)
           ? `<video src="${slide.src}" muted playsinline preload="none"></video>`
-          : (slide.src ? `<img src="${slide.src}" alt="${slide.title || currentCity.name} image ${slideIndex + 1}" />` : "");
+          : (slide.src ? `<img src="${slide.src}" alt="${slide.title || currentCity.name} image ${slideIndex + 1}" loading="lazy" decoding="async" />` : "");
         card.innerHTML = slide.src
           ? thumbMedia
           : `<span class="swiper-card-placeholder-label">Add photo ${slideIndex + 1}</span>`;
