@@ -172,6 +172,13 @@
       transform: scale(1);
     }
 
+    body.swiper-open .audio-consent-button,
+    body.portrait-album-open .audio-consent-button {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transform: translateY(8px) scale(.94) !important;
+    }
+
     .stage {
       min-height: 100vh;
     }
@@ -505,7 +512,7 @@
       gap: 22px;
       text-transform: uppercase;
       letter-spacing: .16em;
-      font-size: clamp(13px, 1.18vw, 18px);
+      font-size: clamp(18px, 1.42vw, 22px);
       line-height: 1;
     }
 
@@ -591,8 +598,8 @@
 
     .home-nav small {
       color: var(--home-muted);
-      font-size: 9px;
-      letter-spacing: .24em;
+      font-size: 11px;
+      letter-spacing: .28em;
     }
 
     .note-mark {
@@ -1917,7 +1924,8 @@
       z-index: 0;
       width: 100%;
       height: 100%;
-      opacity: .82;
+      display: none;
+      opacity: 0;
       pointer-events: none;
       mix-blend-mode: screen;
     }
@@ -1947,6 +1955,8 @@
       padding: clamp(110px, 12vh, 150px) 6vw clamp(54px, 7vh, 82px);
       box-sizing: border-box;
       transform: translateX(6vw);
+      overflow: visible;
+      contain: layout;
     }
 
     .about-photo-stack {
@@ -1959,6 +1969,8 @@
       user-select: none;
       transform: scale(.85);
       transform-origin: center;
+      overflow: visible;
+      contain: layout;
     }
 
     .about-photo-card {
@@ -1986,9 +1998,12 @@
       letter-spacing: .16em;
       text-align: center;
       text-transform: uppercase;
-      cursor: pointer;
+      cursor: default;
       isolation: isolate;
       pointer-events: auto;
+      contain: layout;
+      content-visibility: auto;
+      contain-intrinsic-size: 520px 640px;
       transition:
         transform 680ms cubic-bezier(.19,1,.22,1),
         opacity 680ms ease,
@@ -2025,16 +2040,21 @@
     }
 
     .about-photo-card::after {
-      content: "Click to replace";
+      content: "";
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 22px;
+      bottom: 0;
       z-index: 2;
       color: rgba(20,20,20,.36);
       font-size: 9px;
       letter-spacing: .12em;
       text-transform: uppercase;
+    }
+
+    .about-photo-card .gesture-reminder,
+    .about-edit-note {
+      display: none !important;
     }
 
     .about-photo-card > img {
@@ -2113,15 +2133,17 @@
     }
 
     .about-photo-card:active {
-      cursor: pointer;
+      cursor: default;
     }
 
     .about-photo-card img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       pointer-events: none;
       border-radius: inherit;
+      background: transparent;
+      aspect-ratio: 4 / 5;
     }
 
     .about-photo-card[data-pos="0"] {
@@ -3080,15 +3102,7 @@
     }
 
     .about-edit-note {
-      position: absolute;
-      left: clamp(150px, 13vw, 220px);
-      bottom: 28px;
-      z-index: 3;
-      color: rgba(244,247,251,.42);
-      font-size: 9px;
-      line-height: 13px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
+      display: none !important;
     }
 
     @media (max-width: 760px) {
@@ -3364,10 +3378,10 @@
       </nav>
       <div class="about-wrap">
         <div class="about-photo-stack" id="aboutPhotoStack" aria-label="Swipe identity photos">
-          <button class="about-photo-card" data-slot="about_student" data-index="0"><span class="slot-placeholder">Add<br />student photo</span><span class="gesture-reminder">Hover &amp; Swipe to explore</span></button>
-          <button class="about-photo-card" data-slot="about_consulting" data-index="1"><span class="slot-placeholder">Add<br />consulting photo</span><span class="gesture-reminder">Hover &amp; Swipe to explore</span></button>
-          <button class="about-photo-card" data-slot="about_media" data-index="2"><span class="slot-placeholder">Add<br />media photo</span><span class="gesture-reminder">Hover &amp; Swipe to explore</span></button>
-          <button class="about-photo-card" data-slot="about_photo" data-index="3"><span class="slot-placeholder">Add<br />photo work</span><span class="gesture-reminder">Hover &amp; Swipe to explore</span></button>
+          <button class="about-photo-card" data-slot="about_student" data-index="0"><span class="slot-placeholder">Student<br />portfolio image</span></button>
+          <button class="about-photo-card" data-slot="about_consulting" data-index="1"><span class="slot-placeholder">Process<br />portfolio image</span></button>
+          <button class="about-photo-card" data-slot="about_media" data-index="2"><span class="slot-placeholder">Media<br />portfolio image</span></button>
+          <button class="about-photo-card" data-slot="about_photo" data-index="3"><span class="slot-placeholder">Photography<br />portfolio image</span></button>
         </div>
 
         <div class="about-copy-panel" aria-live="polite">
@@ -3402,10 +3416,7 @@
           </div>
         </div>
       </div>
-      <p class="about-edit-note">
-        Click the photo stack to replace images. Use arrows or drag the photos left/right to switch identities.
-        Permanent image paths live in USER_ASSETS_LOCKED.aboutImageSlots.
-      </p>
+      <p class="about-edit-note" aria-hidden="true"></p>
     </section>
   </main>
 
@@ -3472,9 +3483,6 @@
     <button id="closeEventPhoto" class="documentary-close">Close</button>
     <div class="event-photo-stage" id="eventPhotoStage"></div>
   </section>
-
-  <input id="globalFileInput" class="file-input" type="file" accept="image/*" />
-  <input id="cityVideoInput" class="file-input" type="file" accept="video/*" />
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -4269,12 +4277,14 @@
 
     const characterContainer = document.querySelector(".character-container");
     const characterCloud = document.querySelector(".character-cloud");
-    characterContainer?.addEventListener("click", () => {
+    function showCharacterCloud() {
       if (!characterCloud) return;
       characterCloud.classList.remove("show");
       void characterCloud.offsetWidth;
       characterCloud.classList.add("show");
-    });
+    }
+    characterContainer?.addEventListener("click", showCharacterCloud);
+    characterContainer?.addEventListener("pointerenter", showCharacterCloud);
 
     home.addEventListener("click", event => {
       if (event.target.closest("[data-target]")) return;
@@ -4296,6 +4306,7 @@
 
     // Home editing slots
     const fileInput = document.getElementById("globalFileInput");
+    const PUBLIC_UPLOADS_ENABLED = false;
     let pendingSlot = null;
     const IMAGE_SLOT_PATHS = { ...HOME_IMAGE_SLOTS, ...ABOUT_IMAGE_SLOTS };
     const SLOT_STORAGE_PREFIX = "zhirou-portfolio-slot:";
@@ -4360,10 +4371,12 @@
       const slotImage = key.startsWith("about_") ? (lockedImage || savedImage) : (savedImage || lockedImage);
       if (slotImage) applySlotImage(slot, slotImage);
       slot.dataset.baseTransform = getComputedStyle(slot).transform === "none" ? "" : getComputedStyle(slot).transform;
-      slot.addEventListener("click", () => {
-        pendingSlot = slot;
-        fileInput.click();
-      });
+      if (PUBLIC_UPLOADS_ENABLED && fileInput) {
+        slot.addEventListener("click", () => {
+          pendingSlot = slot;
+          fileInput.click();
+        });
+      }
     });
 
     document.querySelectorAll("#home .slot").forEach(slot => {
@@ -4384,32 +4397,39 @@
       });
     });
 
-    fileInput.addEventListener("change", () => {
-      if (fileInput.onchange) return;
-      const file = fileInput.files[0];
-      if (!file || !pendingSlot) return;
-      const slot = pendingSlot;
-      compressImageFile(file).then(src => {
-        applySlotImage(slot, src);
-        persistSlotImage(slot.dataset.slot, src);
-        fileInput.value = "";
-        pendingSlot = null;
-      }).catch(error => {
-        console.warn("Could not process image upload.", error);
-        fileInput.value = "";
-        pendingSlot = null;
+    if (PUBLIC_UPLOADS_ENABLED && fileInput) {
+      fileInput.addEventListener("change", () => {
+        if (fileInput.onchange) return;
+        const file = fileInput.files[0];
+        if (!file || !pendingSlot) return;
+        const slot = pendingSlot;
+        compressImageFile(file).then(src => {
+          applySlotImage(slot, src);
+          persistSlotImage(slot.dataset.slot, src);
+          fileInput.value = "";
+          pendingSlot = null;
+        }).catch(error => {
+          console.warn("Could not process image upload.", error);
+          fileInput.value = "";
+          pendingSlot = null;
+        });
       });
-    });
+    }
 
     function applySlotImage(slot, src) {
       slot.classList.remove("placeholder");
-      slot.innerHTML = `<img src="${assetUrl(src)}" alt="${slot.dataset.slot} custom image" loading="lazy" decoding="async" /><span class="gesture-reminder">Hover &amp; Swipe to explore</span>`;
+      const isAboutSlot = slot.classList.contains("about-photo-card");
+      const fixedSizeAttrs = isAboutSlot ? ' width="900" height="1125" fetchpriority="low"' : "";
+      const reminder = isAboutSlot ? "" : '<span class="gesture-reminder">Hover &amp; Swipe to explore</span>';
+      slot.innerHTML = `<img src="${assetUrl(src)}" alt="${slot.dataset.slot} portfolio image" loading="lazy" decoding="async"${fixedSizeAttrs} />${reminder}`;
     }
 
     const aboutPhotoStack = document.getElementById("aboutPhotoStack");
     const aboutCards = [...document.querySelectorAll(".about-photo-card")];
+    const ABOUT_GALAXY_ENABLED = false;
+    const ABOUT_EDGE_GLOW_ENABLED = false;
     const aboutGalaxyCanvas = document.getElementById("aboutGalaxyCanvas");
-    const aboutGalaxyCtx = aboutGalaxyCanvas.getContext("2d");
+    const aboutGalaxyCtx = ABOUT_GALAXY_ENABLED && aboutGalaxyCanvas ? aboutGalaxyCanvas.getContext("2d") : null;
     const aboutRoleTitle = document.getElementById("aboutRoleTitle");
     const aboutRoleKicker = document.getElementById("aboutRoleKicker");
     const aboutRoleSummary = document.getElementById("aboutRoleSummary");
@@ -4451,7 +4471,7 @@
       }
     }
 
-    aboutCards.forEach(card => {
+    if (ABOUT_EDGE_GLOW_ENABLED) aboutCards.forEach(card => {
       card.addEventListener("pointermove", event => {
         registerAboutGestureMove(event);
         const rect = card.getBoundingClientRect();
@@ -4479,7 +4499,7 @@
       });
     });
 
-    requestAnimationFrame(() => {
+    if (ABOUT_EDGE_GLOW_ENABLED) requestAnimationFrame(() => {
       aboutCards.forEach((card, index) => {
         window.setTimeout(() => {
           card.classList.add("sweep-active");
@@ -4494,6 +4514,7 @@
     });
 
     function resizeAboutGalaxy() {
+      if (!ABOUT_GALAXY_ENABLED || !aboutGalaxyCanvas || !aboutGalaxyCtx) return;
       const rect = document.getElementById("about").getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       aboutGalaxyCanvas.width = Math.max(1, Math.floor(rect.width * dpr));
@@ -4520,6 +4541,7 @@
     }
 
     function drawAboutGalaxy() {
+      if (!ABOUT_GALAXY_ENABLED || !aboutGalaxyCanvas || !aboutGalaxyCtx) return;
       const about = document.getElementById("about");
       const rect = about.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -4574,12 +4596,14 @@
       requestAnimationFrame(drawAboutGalaxy);
     }
 
-    document.getElementById("about").addEventListener("pointermove", event => {
-      const rect = document.getElementById("about").getBoundingClientRect();
-      aboutGalaxyMouseX = (event.clientX - rect.left) / rect.width;
-      aboutGalaxyMouseY = (event.clientY - rect.top) / rect.height;
-      aboutGalaxyMouseActive = 1;
-    });
+    if (ABOUT_GALAXY_ENABLED) {
+      document.getElementById("about").addEventListener("pointermove", event => {
+        const rect = document.getElementById("about").getBoundingClientRect();
+        aboutGalaxyMouseX = (event.clientX - rect.left) / rect.width;
+        aboutGalaxyMouseY = (event.clientY - rect.top) / rect.height;
+        aboutGalaxyMouseActive = 1;
+      });
+    }
 
     function updateAboutCarousel(direction = 0) {
       aboutCards.forEach((card, index) => {
@@ -4717,11 +4741,6 @@
     });
 
     aboutPhotoStack.addEventListener("pointerup", event => {
-      const moved = Math.hypot(event.clientX - aboutPointerDownX, event.clientY - aboutPointerDownY);
-      if (aboutPointerDownTarget && !aboutDragged && moved <= 10) {
-        pendingSlot = aboutPointerDownTarget;
-        fileInput.click();
-      }
       setTimeout(() => {
         suppressAboutClick = false;
         aboutPointerDownTarget = null;
@@ -4735,9 +4754,11 @@
     }, true);
 
     updateAboutCarousel(0);
-    resizeAboutGalaxy();
-    requestAnimationFrame(drawAboutGalaxy);
-    window.addEventListener("resize", resizeAboutGalaxy);
+    if (ABOUT_GALAXY_ENABLED) {
+      resizeAboutGalaxy();
+      requestAnimationFrame(drawAboutGalaxy);
+      window.addEventListener("resize", resizeAboutGalaxy);
+    }
 
     // Portraits: generated from /Users/zhirou/Desktop/作品集/人像 via scripts/build-portraits-index.mjs
     const portraitsSection = document.getElementById("portraits");
@@ -4969,6 +4990,7 @@
       renderPortraitAlbum(album);
       portraitsSection.classList.remove("album-closing");
       portraitsSection.classList.add("album-open");
+      document.body.classList.add("portrait-album-open");
       portraitsTransition.classList.remove("show", "reveal-title");
     }
 
@@ -5027,6 +5049,7 @@
       portraitsSection.classList.add("album-closing");
       window.setTimeout(() => {
         portraitsSection.classList.remove("album-open", "album-closing");
+        document.body.classList.remove("portrait-album-open");
         if (portraitObserver) portraitObserver.disconnect();
         portraitsFlow.innerHTML = "";
         requestAnimationFrame(layoutPortraitAlbums);
@@ -5072,6 +5095,8 @@
         requestAnimationFrame(layoutPortraitAlbums);
       } else {
         stopPortraitMusic();
+        portraitsSection.classList.remove("album-open", "album-closing");
+        document.body.classList.remove("portrait-album-open");
       }
       syncVideoControl();
     }
@@ -5784,7 +5809,13 @@
       swiperIndex = 0;
       swiperTitle.textContent = city.name;
       swiperOverlay.classList.add("show");
+      document.body.classList.add("swiper-open");
       renderSwiper();
+    }
+
+    function closeSwiperOverlay() {
+      swiperOverlay.classList.remove("show");
+      document.body.classList.remove("swiper-open");
     }
 
     function placeholderGradient(index) {
@@ -6017,6 +6048,7 @@
     }
 
     function pickCityImage(index = swiperIndex) {
+      if (!PUBLIC_UPLOADS_ENABLED || !fileInput) return;
       pendingSlot = null;
       fileInput.onchange = () => {
         const file = fileInput.files[0];
@@ -6039,7 +6071,7 @@
     }
 
     function pickCityVideo() {
-      if (!currentCity) return;
+      if (!PUBLIC_UPLOADS_ENABLED || !currentCity || !cityVideoInput) return;
       cityVideoInput.onchange = () => {
         const file = cityVideoInput.files[0];
         if (!file || !currentCity) return;
@@ -6139,7 +6171,7 @@
       applyDarkroomFilter();
     });
 
-    closeSwiper.addEventListener("click", () => swiperOverlay.classList.remove("show"));
+    closeSwiper.addEventListener("click", closeSwiperOverlay);
     prevImage.addEventListener("click", () => {
       if (!currentCity) return;
       const len = getCitySlides().length;
@@ -6158,7 +6190,7 @@
     addCityVideo.addEventListener("click", pickCityVideo);
 
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape") swiperOverlay.classList.remove("show");
+      if (event.key === "Escape") closeSwiperOverlay();
     });
   </script>
 </body>

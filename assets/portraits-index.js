@@ -204,43 +204,43 @@ window.PORTRAITS_INDEX = {
       "date": "2026-04-04",
       "isGraduation": false,
       "isPets": false,
-      "cover": "assets/portraits-covers/2026-2026-04-04-botanical-resonance-(video)-cover.jpg",
+      "cover": "assets-optimized/portraits-covers/2026-2026-04-04-botanical-resonance-(video)-cover.webp",
       "originalCover": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2026/2026-04-04-Botanical-Resonance-(Video)/cover.JPG",
       "coverName": "cover.JPG",
       "path": "/Users/zhirou/Desktop/作品集/人像/2026/2026-04-04-Botanical-Resonance-(Video)",
       "media": [
         {
-          "src": "assets/portraits-media/2026-2026-04-04-botanical-resonance-(video)-cover.jpg",
+          "src": "assets-optimized/portraits-media/2026-2026-04-04-botanical-resonance-(video)-cover.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2026/2026-04-04-Botanical-Resonance-(Video)/cover.JPG",
           "name": "cover.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-1770.jpg",
+          "src": "assets-optimized/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-1770.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2026/2026-04-04-Botanical-Resonance-(Video)/IMG_1770.JPG",
           "name": "IMG_1770.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-1773.jpg",
+          "src": "assets-optimized/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-1773.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2026/2026-04-04-Botanical-Resonance-(Video)/IMG_1773.JPG",
           "name": "IMG_1773.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-1774.jpg",
+          "src": "assets-optimized/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-1774.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2026/2026-04-04-Botanical-Resonance-(Video)/IMG_1774.JPG",
           "name": "IMG_1774.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-1775.jpg",
+          "src": "assets-optimized/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-1775.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2026/2026-04-04-Botanical-Resonance-(Video)/IMG_1775.JPG",
           "name": "IMG_1775.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-4712.jpg",
+          "src": "assets-optimized/portraits-media/2026-2026-04-04-botanical-resonance-(video)-img-4712.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2026/2026-04-04-Botanical-Resonance-(Video)/IMG_4712.JPG",
           "name": "IMG_4712.JPG",
           "type": "image"
@@ -615,55 +615,55 @@ window.PORTRAITS_INDEX = {
       "date": "2025-12-26",
       "isGraduation": true,
       "isPets": false,
-      "cover": "assets/portraits-covers/2025-2025-12-26-radiant-farewell(graduation)-cover.jpg",
+      "cover": "assets-optimized/portraits-covers/2025-2025-12-26-radiant-farewell(graduation)-cover.webp",
       "originalCover": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-26-Radiant-Farewell(Graduation)/cover.jpg",
       "coverName": "cover.jpg",
       "path": "/Users/zhirou/Desktop/作品集/人像/2025/2025-12-26-Radiant-Farewell(Graduation)",
       "media": [
         {
-          "src": "assets/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-cover.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-cover.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-26-Radiant-Farewell(Graduation)/cover.jpg",
           "name": "cover.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-6c138dd36995ac109c9218e037310981.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-6c138dd36995ac109c9218e037310981.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-26-Radiant-Farewell(Graduation)/6c138dd36995ac109c9218e037310981.jpg",
           "name": "6c138dd36995ac109c9218e037310981.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-17b6f363a84d4e5080c97a6243d79c39.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-17b6f363a84d4e5080c97a6243d79c39.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-26-Radiant-Farewell(Graduation)/17b6f363a84d4e5080c97a6243d79c39.jpg",
           "name": "17b6f363a84d4e5080c97a6243d79c39.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-49b8264083badf7d4577856ad64556a2.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-49b8264083badf7d4577856ad64556a2.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-26-Radiant-Farewell(Graduation)/49b8264083badf7d4577856ad64556a2.jpg",
           "name": "49b8264083badf7d4577856ad64556a2.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-82f99d74b456049ac607806d69a85dda.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-82f99d74b456049ac607806d69a85dda.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-26-Radiant-Farewell(Graduation)/82f99d74b456049ac607806d69a85dda.jpg",
           "name": "82f99d74b456049ac607806d69a85dda.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-91eba8069ba434f86b73adbd06df9f54.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-91eba8069ba434f86b73adbd06df9f54.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-26-Radiant-Farewell(Graduation)/91eba8069ba434f86b73adbd06df9f54.jpg",
           "name": "91eba8069ba434f86b73adbd06df9f54.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-678bbee5bcceaa647be00797262dfe3f.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-678bbee5bcceaa647be00797262dfe3f.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-26-Radiant-Farewell(Graduation)/678bbee5bcceaa647be00797262dfe3f.jpg",
           "name": "678bbee5bcceaa647be00797262dfe3f.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-b190ca0282e77ad25dd5e888588dcef1.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-26-radiant-farewell(graduation)-b190ca0282e77ad25dd5e888588dcef1.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-26-Radiant-Farewell(Graduation)/b190ca0282e77ad25dd5e888588dcef1.jpg",
           "name": "b190ca0282e77ad25dd5e888588dcef1.jpg",
           "type": "image"
@@ -678,49 +678,49 @@ window.PORTRAITS_INDEX = {
       "date": "2025-12-21",
       "isGraduation": true,
       "isPets": false,
-      "cover": "assets/portraits-covers/2025-2025-12-21-campus-echoes(graduation)-cover.jpg",
+      "cover": "assets-optimized/portraits-covers/2025-2025-12-21-campus-echoes(graduation)-cover.webp",
       "originalCover": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-21-Campus-Echoes(Graduation)/cover.jpg",
       "coverName": "cover.jpg",
       "path": "/Users/zhirou/Desktop/作品集/人像/2025/2025-12-21-Campus-Echoes(Graduation)",
       "media": [
         {
-          "src": "assets/portraits-media/2025-2025-12-21-campus-echoes(graduation)-cover.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-21-campus-echoes(graduation)-cover.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-21-Campus-Echoes(Graduation)/cover.jpg",
           "name": "cover.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-21-campus-echoes(graduation)-8f10619f63e505faf5f68624461d77cb.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-21-campus-echoes(graduation)-8f10619f63e505faf5f68624461d77cb.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-21-Campus-Echoes(Graduation)/8f10619f63e505faf5f68624461d77cb.jpg",
           "name": "8f10619f63e505faf5f68624461d77cb.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-21-campus-echoes(graduation)-413ef95adb36294cd13ac00402c34ea2.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-21-campus-echoes(graduation)-413ef95adb36294cd13ac00402c34ea2.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-21-Campus-Echoes(Graduation)/413ef95adb36294cd13ac00402c34ea2.jpg",
           "name": "413ef95adb36294cd13ac00402c34ea2.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-21-campus-echoes(graduation)-c598f73f41b55972bf78807715324cff.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-21-campus-echoes(graduation)-c598f73f41b55972bf78807715324cff.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-21-Campus-Echoes(Graduation)/c598f73f41b55972bf78807715324cff.jpg",
           "name": "c598f73f41b55972bf78807715324cff.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-21-campus-echoes(graduation)-img-5522.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-21-campus-echoes(graduation)-img-5522.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-21-Campus-Echoes(Graduation)/IMG_5522.JPG",
           "name": "IMG_5522.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-21-campus-echoes(graduation)-img-5523.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-21-campus-echoes(graduation)-img-5523.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-21-Campus-Echoes(Graduation)/IMG_5523.JPG",
           "name": "IMG_5523.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-21-campus-echoes(graduation)-img-5524.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-21-campus-echoes(graduation)-img-5524.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-21-Campus-Echoes(Graduation)/IMG_5524.JPG",
           "name": "IMG_5524.JPG",
           "type": "image"
@@ -735,37 +735,37 @@ window.PORTRAITS_INDEX = {
       "date": "2025-12-16",
       "isGraduation": true,
       "isPets": false,
-      "cover": "assets/portraits-covers/2025-2025-12-16-unbound-sunlight(graduation)-cover.jpg",
+      "cover": "assets-optimized/portraits-covers/2025-2025-12-16-unbound-sunlight(graduation)-cover.webp",
       "originalCover": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-16-Unbound-Sunlight(Graduation)/cover.jpg",
       "coverName": "cover.jpg",
       "path": "/Users/zhirou/Desktop/作品集/人像/2025/2025-12-16-Unbound-Sunlight(Graduation)",
       "media": [
         {
-          "src": "assets/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-cover.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-cover.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-16-Unbound-Sunlight(Graduation)/cover.jpg",
           "name": "cover.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-img-5595.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-img-5595.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-16-Unbound-Sunlight(Graduation)/IMG_5595.JPG",
           "name": "IMG_5595.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-img-5597.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-img-5597.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-16-Unbound-Sunlight(Graduation)/IMG_5597.JPG",
           "name": "IMG_5597.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-img-9964.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-img-9964.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-16-Unbound-Sunlight(Graduation)/IMG_9964.JPG",
           "name": "IMG_9964.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-img-9969.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-16-unbound-sunlight(graduation)-img-9969.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-16-Unbound-Sunlight(Graduation)/IMG_9969.JPG",
           "name": "IMG_9969.JPG",
           "type": "image"
@@ -780,85 +780,85 @@ window.PORTRAITS_INDEX = {
       "date": "2025-12-15",
       "isGraduation": true,
       "isPets": false,
-      "cover": "assets/portraits-covers/2025-2025-12-15-jacaranda-grace(graduation)-cover.jpg",
+      "cover": "assets-optimized/portraits-covers/2025-2025-12-15-jacaranda-grace(graduation)-cover.webp",
       "originalCover": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/cover.JPG",
       "coverName": "cover.JPG",
       "path": "/Users/zhirou/Desktop/作品集/人像/2025/2025-12-15-Jacaranda-Grace(Graduation)",
       "media": [
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-cover.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-cover.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/cover.JPG",
           "name": "cover.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0987.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0987.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_0987.PNG",
           "name": "IMG_0987.PNG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0988.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0988.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_0988.JPG",
           "name": "IMG_0988.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0989.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0989.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_0989.JPG",
           "name": "IMG_0989.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0990.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0990.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_0990.JPG",
           "name": "IMG_0990.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0991.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0991.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_0991.JPG",
           "name": "IMG_0991.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0994.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0994.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_0994.JPG",
           "name": "IMG_0994.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0995.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0995.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_0995.JPG",
           "name": "IMG_0995.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0997.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-0997.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_0997.JPG",
           "name": "IMG_0997.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-1001.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-1001.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_1001.JPG",
           "name": "IMG_1001.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-1027.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-1027.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_1027.JPG",
           "name": "IMG_1027.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-1028.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-1028.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_1028.JPG",
           "name": "IMG_1028.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-1029.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-15-jacaranda-grace(graduation)-img-1029.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-15-Jacaranda-Grace(Graduation)/IMG_1029.JPG",
           "name": "IMG_1029.JPG",
           "type": "image"
@@ -873,49 +873,49 @@ window.PORTRAITS_INDEX = {
       "date": "2025-12-11",
       "isGraduation": true,
       "isPets": false,
-      "cover": "assets/portraits-covers/2025-2025-12-11-monash-serenity(graduation)-cover.jpg",
+      "cover": "assets-optimized/portraits-covers/2025-2025-12-11-monash-serenity(graduation)-cover.webp",
       "originalCover": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-11-Monash-Serenity(Graduation)/cover.JPG",
       "coverName": "cover.JPG",
       "path": "/Users/zhirou/Desktop/作品集/人像/2025/2025-12-11-Monash-Serenity(Graduation)",
       "media": [
         {
-          "src": "assets/portraits-media/2025-2025-12-11-monash-serenity(graduation)-cover.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-11-monash-serenity(graduation)-cover.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-11-Monash-Serenity(Graduation)/cover.JPG",
           "name": "cover.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-11-monash-serenity(graduation)-8aa21c1c0f08e61089948d48c7ac2691.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-11-monash-serenity(graduation)-8aa21c1c0f08e61089948d48c7ac2691.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-11-Monash-Serenity(Graduation)/8aa21c1c0f08e61089948d48c7ac2691.png",
           "name": "8aa21c1c0f08e61089948d48c7ac2691.png",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-11-monash-serenity(graduation)-d5dcd64d7ee34d723c0f60c90e6859d2.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-11-monash-serenity(graduation)-d5dcd64d7ee34d723c0f60c90e6859d2.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-11-Monash-Serenity(Graduation)/d5dcd64d7ee34d723c0f60c90e6859d2.png",
           "name": "d5dcd64d7ee34d723c0f60c90e6859d2.png",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-11-monash-serenity(graduation)-img-0389.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-11-monash-serenity(graduation)-img-0389.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-11-Monash-Serenity(Graduation)/IMG_0389.PNG",
           "name": "IMG_0389.PNG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-11-monash-serenity(graduation)-img-0390.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-11-monash-serenity(graduation)-img-0390.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-11-Monash-Serenity(Graduation)/IMG_0390.PNG",
           "name": "IMG_0390.PNG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-11-monash-serenity(graduation)-img-0391.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-11-monash-serenity(graduation)-img-0391.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-11-Monash-Serenity(Graduation)/IMG_0391.PNG",
           "name": "IMG_0391.PNG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-11-monash-serenity(graduation)-img-0394.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-11-monash-serenity(graduation)-img-0394.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-11-Monash-Serenity(Graduation)/IMG_0394.JPG",
           "name": "IMG_0394.JPG",
           "type": "image"
@@ -930,79 +930,79 @@ window.PORTRAITS_INDEX = {
       "date": "2025-12-09",
       "isGraduation": true,
       "isPets": false,
-      "cover": "assets/portraits-covers/2025-2025-12-09-campus-verdure(graduation)-cover.jpg",
+      "cover": "assets-optimized/portraits-covers/2025-2025-12-09-campus-verdure(graduation)-cover.webp",
       "originalCover": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/cover.png",
       "coverName": "cover.png",
       "path": "/Users/zhirou/Desktop/作品集/人像/2025/2025-12-09-Campus-Verdure(Graduation)",
       "media": [
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-cover.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-cover.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/cover.png",
           "name": "cover.png",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-4d3e3b78f1f7d5b3bd486d74aa112636.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-4d3e3b78f1f7d5b3bd486d74aa112636.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/4d3e3b78f1f7d5b3bd486d74aa112636.jpg",
           "name": "4d3e3b78f1f7d5b3bd486d74aa112636.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-19ed4a699bb5eed2c04b0c85052cb761.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-19ed4a699bb5eed2c04b0c85052cb761.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/19ed4a699bb5eed2c04b0c85052cb761.png",
           "name": "19ed4a699bb5eed2c04b0c85052cb761.png",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-31cf417436022a1d9892ddd14a42cf0a.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-31cf417436022a1d9892ddd14a42cf0a.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/31cf417436022a1d9892ddd14a42cf0a.png",
           "name": "31cf417436022a1d9892ddd14a42cf0a.png",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-580d2c7e333632e4658a1958bc15ef63.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-580d2c7e333632e4658a1958bc15ef63.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/580d2c7e333632e4658a1958bc15ef63.jpg",
           "name": "580d2c7e333632e4658a1958bc15ef63.jpg",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-f8c2c35da3773135e68f887ff608f7b4.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-f8c2c35da3773135e68f887ff608f7b4.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/f8c2c35da3773135e68f887ff608f7b4.png",
           "name": "f8c2c35da3773135e68f887ff608f7b4.png",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4268.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4268.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/IMG_4268.JPG",
           "name": "IMG_4268.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4270.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4270.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/IMG_4270.JPG",
           "name": "IMG_4270.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4278.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4278.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/IMG_4278.JPG",
           "name": "IMG_4278.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4279.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4279.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/IMG_4279.JPG",
           "name": "IMG_4279.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4280.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4280.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/IMG_4280.JPG",
           "name": "IMG_4280.JPG",
           "type": "image"
         },
         {
-          "src": "assets/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4538.jpg",
+          "src": "assets-optimized/portraits-media/2025-2025-12-09-campus-verdure(graduation)-img-4538.webp",
           "originalSrc": "file:///Users/zhirou/Desktop/%E4%BD%9C%E5%93%81%E9%9B%86/%E4%BA%BA%E5%83%8F/2025/2025-12-09-Campus-Verdure(Graduation)/IMG_4538.JPG",
           "name": "IMG_4538.JPG",
           "type": "image"
