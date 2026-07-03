@@ -1984,20 +1984,27 @@
       --card-bg: transparent;
       --glow-color: 220deg 100% 85%;
       --gesture-glow-limit: .38;
+      --folder-lip: clamp(24px, 3.4vh, 36px);
+      --side-lip: 4px;
       position: absolute;
       inset: 0;
-      display: grid;
-      place-items: center;
-      overflow: visible;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
       border-radius: clamp(24px, 3.2vw, 48px);
-      background: #e8e5df;
-      box-shadow: 0 34px 90px rgba(0,0,0,.36);
+      border: 0;
+      background:
+        linear-gradient(180deg, rgba(244,242,236,.98) 0 var(--folder-lip), transparent var(--folder-lip));
+      box-shadow: 0 18px 46px rgba(0,0,0,.24);
       color: rgba(20,20,20,.34);
       font-size: 11px;
       line-height: 17px;
       letter-spacing: .16em;
       text-align: center;
       text-transform: uppercase;
+      padding: 0;
+      box-sizing: border-box;
       cursor: default;
       isolation: isolate;
       pointer-events: auto;
@@ -2007,7 +2014,7 @@
       transition:
         transform 680ms cubic-bezier(.19,1,.22,1),
         opacity 680ms ease,
-        filter 680ms ease;
+      filter 680ms ease;
     }
 
     .about-photo-card::before {
@@ -2042,8 +2049,8 @@
     .about-photo-card::after {
       content: "";
       position: absolute;
-      left: 0;
-      right: 0;
+      left: var(--side-lip);
+      right: var(--side-lip);
       bottom: 0;
       z-index: 2;
       color: rgba(20,20,20,.36);
@@ -2058,8 +2065,13 @@
     }
 
     .about-photo-card > img {
-      position: relative;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
       z-index: 1;
+      flex: 0 0 auto;
+      background: transparent;
     }
 
     .about-photo-card .slot-placeholder {
@@ -2138,15 +2150,19 @@
 
     .about-photo-card img {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
+      height: calc(100% - var(--folder-lip));
+      max-width: 100%;
+      max-height: none;
+      object-fit: cover;
+      object-position: center center;
       pointer-events: none;
-      border-radius: inherit;
+      border-radius: 0 0 calc(clamp(24px, 3.2vw, 48px) - 10px) calc(clamp(24px, 3.2vw, 48px) - 10px);
       background: transparent;
-      aspect-ratio: 4 / 5;
+      display: block;
     }
 
     .about-photo-card[data-pos="0"] {
+      --folder-lip: clamp(42px, 5.8vh, 64px);
       z-index: 7;
       transform: translate3d(8%, 8%, 0) rotate(0deg) scale(.9);
       opacity: 1;
@@ -2154,24 +2170,27 @@
     }
 
     .about-photo-card[data-pos="1"] {
+      --folder-lip: clamp(20px, 2.7vh, 30px);
       z-index: 6;
       transform: translate3d(-3%, 0, 0) rotate(-4deg) scale(.92);
-      opacity: .72;
-      filter: saturate(.82) contrast(.92);
+      opacity: 1;
+      filter: saturate(.82) contrast(.9) brightness(.92);
     }
 
     .about-photo-card[data-pos="2"] {
+      --folder-lip: clamp(34px, 4.7vh, 52px);
       z-index: 5;
       transform: translate3d(18%, -5%, 0) rotate(3deg) scale(.91);
-      opacity: .54;
-      filter: saturate(.72) contrast(.9);
+      opacity: 1;
+      filter: saturate(.74) contrast(.88) brightness(.86);
     }
 
     .about-photo-card[data-pos="3"] {
+      --folder-lip: clamp(16px, 2.2vh, 24px);
       z-index: 4;
       transform: translate3d(-12%, 10%, 0) rotate(4deg) scale(.86);
-      opacity: .34;
-      filter: saturate(.68) contrast(.88);
+      opacity: 1;
+      filter: saturate(.68) contrast(.86) brightness(.78);
     }
 
     .about-copy-panel {
