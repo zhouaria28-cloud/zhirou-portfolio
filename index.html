@@ -60,31 +60,116 @@
     }
 
     .audio-consent-button {
+      --glow-x: 50%;
+      --glow-y: 50%;
       position: fixed;
       right: clamp(18px, 2.4vw, 34px);
       bottom: clamp(18px, 2.4vw, 34px);
       z-index: 150;
-      width: 44px;
-      height: 44px;
+      width: 50px;
+      height: 50px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.22);
       border-radius: 50%;
-      color: rgba(255,255,255,.78);
-      background: rgba(5,8,16,.28);
-      backdrop-filter: blur(14px) saturate(130%);
-      box-shadow: 0 14px 34px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.08);
-      font-size: 16px;
+      color: rgba(255,255,255,.84);
+      background:
+        radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(255,255,255,.24), transparent 0 38%),
+        linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.035) 52%, rgba(168,192,255,.08));
+      backdrop-filter: blur(16px) saturate(145%);
+      -webkit-backdrop-filter: blur(16px) saturate(145%);
+      box-shadow:
+        0 18px 42px rgba(0,0,0,.28),
+        inset 0 1px 1px rgba(255,255,255,.32),
+        inset 0 -18px 30px rgba(7,12,24,.16);
       line-height: 1;
-      transition: transform 320ms cubic-bezier(.19,1,.22,1), border-color 320ms ease, background 320ms ease, color 320ms ease;
+      overflow: hidden;
+      transition: transform 360ms cubic-bezier(.19,1,.22,1), border-color 360ms ease, background 360ms ease, color 360ms ease, filter 360ms ease;
+    }
+
+    .video-control-button {
+      right: calc(clamp(18px, 2.4vw, 34px) + 62px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px) scale(.94);
+    }
+
+    body.media-video-available .video-control-button {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .audio-consent-button::before,
+    .audio-consent-button::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .audio-consent-button::before {
+      background: linear-gradient(135deg, rgba(255,255,255,.44), transparent 34%, rgba(255,255,255,.1) 58%, transparent 72%);
+      opacity: .55;
+      mix-blend-mode: screen;
+    }
+
+    .audio-consent-button::after {
+      inset: -30%;
+      background: radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(216,236,255,.46), transparent 0 24%, transparent 52%);
+      opacity: .42;
+      filter: blur(10px);
+      transition: opacity 260ms ease;
+    }
+
+    .audio-consent-button svg {
+      position: relative;
+      z-index: 1;
+      width: 23px;
+      height: 23px;
+      overflow: visible;
+      filter: drop-shadow(0 0 10px rgba(210,232,255,.24));
+    }
+
+    .crystal-note,
+    .crystal-play,
+    .crystal-pause {
+      transition: opacity 280ms ease, transform 360ms cubic-bezier(.19,1,.22,1);
+      transform-origin: center;
     }
 
     .audio-consent-button:hover,
     .audio-consent-button.is-on {
       color: #fff;
-      border-color: rgba(255,255,255,.42);
-      background: rgba(255,255,255,.09);
+      border-color: rgba(255,255,255,.48);
       transform: translateY(-2px);
+      filter: brightness(1.16);
+    }
+
+    .audio-consent-button:hover::after,
+    .audio-consent-button.is-on::after {
+      opacity: .72;
+    }
+
+    .audio-consent-button:active {
+      transform: translateY(0) scale(.95);
+      filter: brightness(1.28);
+    }
+
+    .crystal-pause {
+      opacity: 0;
+      transform: scale(.82);
+    }
+
+    .audio-consent-button.is-on .crystal-play {
+      opacity: 0;
+      transform: scale(.72) rotate(-8deg);
+    }
+
+    .audio-consent-button.is-on .crystal-pause {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .stage {
@@ -252,6 +337,7 @@
     }
 
     .intro-skip {
+      display: none;
       position: absolute;
       right: 22px;
       top: 22px;
@@ -265,8 +351,8 @@
     /* App shell */
     #site {
       min-height: 100vh;
-      opacity: 0;
-      transform: translateY(16px);
+      opacity: 1;
+      transform: translateY(0);
       transition: opacity 850ms ease, transform 850ms ease;
     }
 
@@ -3132,14 +3218,25 @@
 </head>
 
 <body>
-  <button id="audioConsentButton" class="audio-consent-button" type="button" aria-label="Enable ambient audio">🎵</button>
+  <button id="videoControlButton" class="audio-consent-button video-control-button" type="button" aria-label="Play current video scene" aria-pressed="false">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path class="crystal-play" d="M12 9.4v13.2l10.8-6.6L12 9.4Z" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+      <g class="crystal-pause" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round">
+        <path d="M12.4 9.4v13.2"/>
+        <path d="M19.6 9.4v13.2"/>
+      </g>
+    </svg>
+  </button>
+  <button id="audioConsentButton" class="audio-consent-button" type="button" aria-label="Enable ambient audio" aria-pressed="false">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path class="crystal-note" d="M20.8 6.4v14.25a4.55 4.55 0 1 1-2.25-3.92V9.35l-8.1 1.55v11.7a4.55 4.55 0 1 1-2.25-3.9V9.05l12.6-2.65Z" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+    </svg>
+  </button>
 
-  <section id="intro" aria-label="Interactive video intro">
-    <video id="videoOne" class="intro-video" src="assets/intro-1.mov" playsinline autoplay muted preload="none"></video>
+  <section id="intro" class="hidden" aria-label="Home video scene">
+    <video id="videoOne" class="intro-video" src="assets/intro-1.mov" playsinline muted preload="none"></video>
     <video id="videoTwo" class="intro-video hidden" src="assets/intro-2.mov" playsinline muted preload="none"></video>
     <div class="intro-vignette"></div>
-
-    <button id="introSkip" class="intro-skip">Skip intro</button>
 
     <div id="continueLayer" class="continue-layer">
       <div class="continue-card">
@@ -3153,7 +3250,7 @@
     </div>
   </section>
 
-  <main id="site">
+  <main id="site" class="ready">
     <section id="home" class="view active" aria-label="Home collage">
       <div class="home-frost" aria-hidden="true"></div>
       <canvas id="homeRippleCanvas" aria-hidden="true"></canvas>
@@ -3406,6 +3503,7 @@
         worksEntryVideo: "assets/works-entry-video.mov",
         homeBackgroundAudio: "assets/home-bg-audio.mov",
         worksBackgroundMusic: "assets/works-underwater.flac",
+        portraitsBackgroundMusic: "assets/portraits-bgm.flac",
         documentaryCuriosities: "https://res.cloudinary.com/jorpvc9a/video/upload/v1782962134/7%E6%9C%882%E6%97%A5_1_rl21ig.mov"
       },
       homeImageSlots: {
@@ -3601,7 +3699,6 @@
     const continueButton = document.getElementById("continueButton");
     const continueStatus = document.getElementById("continueStatus");
     const intro = document.getElementById("intro");
-    const introSkip = document.getElementById("introSkip");
     const site = document.getElementById("site");
     applyLockedMediaSources();
 
@@ -3615,6 +3712,7 @@
       intro.classList.add("continue-armed");
       intro.classList.remove("intro-activated");
       continueLayer.classList.add("show");
+      syncVideoControl();
     }
 
     function playSecondVideo() {
@@ -3630,17 +3728,23 @@
         videoTwo.play().catch(() => {
           finishIntro();
         });
+        syncVideoControl();
       }, 520);
     }
 
     function finishIntro() {
+      videoOne.pause();
+      videoTwo.pause();
       intro.animate([
         { opacity: 1, transform: "scale(1)" },
         { opacity: 0, transform: "scale(1.02)" }
       ], { duration: 850, easing: "cubic-bezier(.19,1,.22,1)", fill: "forwards" }).onfinish = () => {
         intro.classList.add("hidden");
+        intro.classList.remove("continue-armed", "intro-activated");
+        intro.getAnimations().forEach(animation => animation.cancel());
         site.classList.add("ready");
         document.body.style.overflow = "hidden";
+        syncVideoControl();
         startHomeAmbience();
         startGlobe();
       };
@@ -3648,22 +3752,24 @@
 
     videoOne.addEventListener("ended", showContinue);
     videoTwo.addEventListener("ended", finishIntro);
-    introSkip.addEventListener("click", finishIntro);
-
-    videoOne.play().catch(() => {
-      continueStatus.textContent = "Tap once to start the first video.";
-      continueLayer.classList.add("show");
-      continueButton.textContent = "Start video";
+    [videoOne, videoTwo].forEach(video => {
+      video.addEventListener("play", syncVideoControl);
+      video.addEventListener("pause", syncVideoControl);
+      video.addEventListener("ended", syncVideoControl);
     });
+
+    continueStatus.textContent = "Use the crystal play button to start the first video.";
+    continueButton.textContent = "Start video";
 
     continueButton.addEventListener("click", () => {
       if (!firstVideoEnded) {
         continueLayer.classList.remove("show");
         intro.classList.remove("continue-armed", "intro-activated");
         videoOne.play().catch(() => {
-          continueStatus.textContent = "The browser still blocked playback. Use Skip intro while testing.";
+          continueStatus.textContent = "The browser blocked playback. Try the crystal play button again.";
           continueLayer.classList.add("show");
         });
+        syncVideoControl();
         return;
       }
       playSecondVideo();
@@ -3698,6 +3804,7 @@
     homeBgAudio.preload = "none";
     homeBgAudio.volume = 0;
     const audioConsentButton = document.getElementById("audioConsentButton");
+    const videoControlButton = document.getElementById("videoControlButton");
     let ambientAudioEnabled = false;
     let homeAudioWanted = false;
     let homeAudioFade = null;
@@ -3801,19 +3908,39 @@
 
     function playEnabledAmbientForCurrentView() {
       const current = document.querySelector(".view.active")?.id;
-      if (current === "home") startHomeAmbience();
+      if (current === "home" || !current) startHomeAmbience();
       if (current === "works") startWorksMusic();
+      if (current === "portraits") startPortraitMusic();
     }
 
     function stopAllAmbientAudio() {
       stopHomeAmbience();
       stopWorksMusic();
+      stopPortraitMusic();
     }
+
+    function attachCrystalPointer(button) {
+      button.addEventListener("pointermove", event => {
+        const rect = button.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        button.style.setProperty("--glow-x", `${x}%`);
+        button.style.setProperty("--glow-y", `${y}%`);
+      });
+      button.addEventListener("pointerleave", () => {
+        button.style.setProperty("--glow-x", "50%");
+        button.style.setProperty("--glow-y", "50%");
+      });
+    }
+
+    attachCrystalPointer(audioConsentButton);
+    attachCrystalPointer(videoControlButton);
 
     audioConsentButton.addEventListener("click", () => {
       ambientAudioEnabled = !ambientAudioEnabled;
       audioConsentButton.classList.toggle("is-on", ambientAudioEnabled);
       audioConsentButton.setAttribute("aria-label", ambientAudioEnabled ? "Disable ambient audio" : "Enable ambient audio");
+      audioConsentButton.setAttribute("aria-pressed", String(ambientAudioEnabled));
       if (ambientAudioEnabled) playEnabledAmbientForCurrentView();
       else stopAllAmbientAudio();
     });
@@ -4907,20 +5034,32 @@
         view.classList.remove("about-closing");
         view.classList.toggle("active", view.id === id);
       });
+      if (id !== "home" && intro && !intro.classList.contains("hidden")) {
+        videoOne.pause();
+        videoTwo.pause();
+        intro.classList.add("hidden");
+        intro.classList.remove("continue-armed", "intro-activated");
+        continueLayer.classList.remove("show");
+      }
       if (id === "home") startHomeAmbience();
       else stopHomeAmbience();
       if (id === "works") {
         startWorksMusic();
         startGlobe();
-        playWorksIntro();
+        resetWorksIntroForManualPlay();
       } else {
         stopWorksMusic();
+        resetWorksIntroForManualPlay();
         globeRunning = false;
       }
       if (id === "portraits") {
+        startPortraitMusic();
         renderPortraits();
         requestAnimationFrame(layoutPortraitAlbums);
+      } else {
+        stopPortraitMusic();
       }
+      syncVideoControl();
     }
 
     function showView(id) {
@@ -4943,12 +5082,18 @@
     const cityLabels = document.getElementById("cityLabels");
     const worksCinematicIntro = document.getElementById("worksCinematicIntro");
     const worksEntryVideo = document.getElementById("worksEntryVideo");
+    const worksBgVideo = document.querySelector(".works-bg-video");
+    const portraitsBgVideo = document.querySelector(".portraits-bg-video");
     const skipWorksIntro = document.getElementById("skipWorksIntro");
     const worksBlink = document.getElementById("worksBlink");
     const worksMusic = new Audio(USER_ASSETS_LOCKED.media.worksBackgroundMusic);
     worksMusic.loop = true;
     worksMusic.preload = "none";
     worksMusic.volume = .256;
+    const portraitMusic = new Audio(USER_ASSETS_LOCKED.media.portraitsBackgroundMusic);
+    portraitMusic.loop = true;
+    portraitMusic.preload = "none";
+    portraitMusic.volume = .7;
     const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
     const WORLD_GEOJSON_URL = "https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json";
     let THREE = null;
@@ -4985,6 +5130,101 @@
       worksMusic.pause();
     }
 
+    function startPortraitMusic() {
+      if (!ambientAudioEnabled) return;
+      portraitMusic.muted = false;
+      portraitMusic.volume = .7;
+      portraitMusic.load();
+      portraitMusic.play().catch(() => {});
+    }
+
+    function stopPortraitMusic() {
+      portraitMusic.pause();
+    }
+
+    function currentControlledVideo() {
+      const current = document.querySelector(".view.active")?.id;
+      const introVisible = intro && !intro.classList.contains("hidden");
+      if (introVisible || current === "home") {
+        if (secondVideoStarted) return videoTwo;
+        return videoOne;
+      }
+      if (current === "works") return worksEntryVideo;
+      return null;
+    }
+
+    function syncVideoControl() {
+      const current = document.querySelector(".view.active")?.id;
+      const introVisible = intro && !intro.classList.contains("hidden");
+      const available = current === "home" || introVisible || current === "works";
+      document.body.classList.toggle("media-video-available", available);
+      if (!available) {
+        videoControlButton.classList.remove("is-on");
+        videoControlButton.setAttribute("aria-pressed", "false");
+        return;
+      }
+      const video = currentControlledVideo();
+      const isPlaying = Boolean(video && !video.paused && !video.ended);
+      videoControlButton.classList.toggle("is-on", isPlaying);
+      videoControlButton.setAttribute("aria-pressed", String(isPlaying));
+      videoControlButton.setAttribute("aria-label", isPlaying ? "Pause current video scene" : "Play current video scene");
+    }
+
+    function resetWorksIntroForManualPlay() {
+      if (!worksCinematicIntro || !worksEntryVideo) return;
+      worksBlink.classList.remove("run");
+      worksCinematicIntro.classList.remove("run");
+      worksEntryVideo.pause();
+      worksEntryVideo.currentTime = 0;
+      syncVideoControl();
+    }
+
+    function toggleCurrentVideoScene() {
+      const current = document.querySelector(".view.active")?.id;
+      const introVisible = intro && !intro.classList.contains("hidden");
+      if (introVisible || current === "home") {
+        if (intro.classList.contains("hidden")) {
+          intro.classList.remove("hidden");
+          intro.style.opacity = "";
+          intro.style.transform = "";
+          firstVideoEnded = false;
+          secondVideoStarted = false;
+          videoTwo.classList.add("hidden");
+          videoOne.classList.remove("hidden");
+          videoOne.currentTime = 0;
+          videoTwo.currentTime = 0;
+          continueLayer.classList.remove("show");
+          intro.classList.remove("continue-armed", "intro-activated");
+        }
+        if (firstVideoEnded && !secondVideoStarted) {
+          playSecondVideo();
+          syncVideoControl();
+          return;
+        }
+        const video = currentControlledVideo();
+        if (!video) return;
+        if (video.paused || video.ended) {
+          if (video.ended) video.currentTime = 0;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+        syncVideoControl();
+        return;
+      }
+      if (current === "works") {
+        if (!worksCinematicIntro.classList.contains("run") || worksEntryVideo.ended) {
+          playWorksIntro();
+          return;
+        }
+        if (worksEntryVideo.paused) worksEntryVideo.play().catch(() => {});
+        else worksEntryVideo.pause();
+        syncVideoControl();
+      }
+    }
+
+    videoControlButton.addEventListener("click", toggleCurrentVideoScene);
+
     function clamp(value, min, max) {
       return Math.max(min, Math.min(max, value));
     }
@@ -5018,6 +5258,7 @@
           worksEntryVideo.play().catch(() => finishWorksEntryVideo());
         });
       }
+      syncVideoControl();
     }
 
     function finishWorksEntryVideo() {
@@ -5029,15 +5270,19 @@
         worksCinematicIntro.classList.remove("run");
         worksEntryVideo.pause();
         positionCityLabelsOnPoster();
+        syncVideoControl();
       }, 460);
     }
 
     worksEntryVideo.addEventListener("ended", finishWorksEntryVideo);
+    worksEntryVideo.addEventListener("play", syncVideoControl);
+    worksEntryVideo.addEventListener("pause", syncVideoControl);
     worksCinematicIntro.addEventListener("click", finishWorksEntryVideo);
     skipWorksIntro.addEventListener("click", event => {
       event.stopPropagation();
       finishWorksEntryVideo();
     });
+    syncVideoControl();
 
     function createCityLabels() {
       cityLabels.innerHTML = "";

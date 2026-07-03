@@ -154,6 +154,7 @@ const directAssets = [
   "works-space-bg.mov",
   "portraits-bg.mov",
   "works-underwater.flac",
+  "portraits-bgm.flac",
   "lanyard-front.jpg",
   "about-melbourne-uni-student.jpg",
   "about-application-operations.jpg",
