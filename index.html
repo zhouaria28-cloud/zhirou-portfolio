@@ -3478,8 +3478,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="assets/portraits-index.js"></script>
-  <script src="assets/journeys-index.js"></script>
+  <script src="assets/portraits-index.js?v=20260703-photo-fix"></script>
+  <script src="assets/journeys-index.js?v=20260703-photo-fix"></script>
   <script>
     /*
       EDITING OPTIONS
@@ -3552,6 +3552,15 @@
       ...USER_ASSETS_LOCKED.aboutImageSlots
     };
 
+    const STATIC_ASSET_VERSION = "20260703-photo-fix";
+
+    function assetUrl(src) {
+      if (!src || /^(https?:|data:|blob:|file:)/i.test(src)) return src;
+      if (!/^(assets|assets-optimized)\//.test(src)) return src;
+      const glue = src.includes("?") ? "&" : "?";
+      return `${src}${glue}v=${STATIC_ASSET_VERSION}`;
+    }
+
     function applyLockedMediaSources() {
       const media = USER_ASSETS_LOCKED.media;
       const lockedSources = [
@@ -3561,15 +3570,18 @@
       ];
       lockedSources.forEach(([id, src]) => {
         const node = document.getElementById(id);
-        if (node && src && node.getAttribute("src") !== src) node.setAttribute("src", src);
+        const nextSrc = assetUrl(src);
+        if (node && src && node.getAttribute("src") !== nextSrc) node.setAttribute("src", nextSrc);
       });
       const worksBgVideo = document.querySelector(".works-bg-video");
-      if (worksBgVideo && media.worksBackgroundVideo && worksBgVideo.getAttribute("src") !== media.worksBackgroundVideo) {
-        worksBgVideo.setAttribute("src", media.worksBackgroundVideo);
+      const worksBgSrc = assetUrl(media.worksBackgroundVideo);
+      if (worksBgVideo && media.worksBackgroundVideo && worksBgVideo.getAttribute("src") !== worksBgSrc) {
+        worksBgVideo.setAttribute("src", worksBgSrc);
       }
       const homeCharacter = document.querySelector(".character-container img");
-      if (homeCharacter && media.homeCharacter && homeCharacter.getAttribute("src") !== media.homeCharacter) {
-        homeCharacter.setAttribute("src", media.homeCharacter);
+      const homeCharacterSrc = assetUrl(media.homeCharacter);
+      if (homeCharacter && media.homeCharacter && homeCharacter.getAttribute("src") !== homeCharacterSrc) {
+        homeCharacter.setAttribute("src", homeCharacterSrc);
       }
     }
 
@@ -4302,7 +4314,7 @@
         const image = new Image();
         image.onload = () => resolve(image);
         image.onerror = reject;
-        image.src = src;
+        image.src = assetUrl(src);
       });
     }
 
@@ -4391,7 +4403,7 @@
 
     function applySlotImage(slot, src) {
       slot.classList.remove("placeholder");
-      slot.innerHTML = `<img src="${src}" alt="${slot.dataset.slot} custom image" loading="lazy" decoding="async" /><span class="gesture-reminder">Hover &amp; Swipe to explore</span>`;
+      slot.innerHTML = `<img src="${assetUrl(src)}" alt="${slot.dataset.slot} custom image" loading="lazy" decoding="async" /><span class="gesture-reminder">Hover &amp; Swipe to explore</span>`;
     }
 
     const aboutPhotoStack = document.getElementById("aboutPhotoStack");
@@ -4645,7 +4657,7 @@
 
     function openEventPhotography() {
       const images = USER_ASSETS_LOCKED.aboutEventPhotography || [];
-      eventPhotoStage.innerHTML = images.map((src, index) => `<img src="${src}" alt="Event photography ${index + 1}" loading="lazy" decoding="async" />`).join("");
+      eventPhotoStage.innerHTML = images.map((src, index) => `<img src="${assetUrl(src)}" alt="Event photography ${index + 1}" loading="lazy" decoding="async" />`).join("");
       eventPhotoOverlay.classList.add("show");
     }
 
@@ -4908,9 +4920,10 @@
       portraitLoopAlbums = portraitsAlbums.slice();
       portraitsStage.innerHTML = portraitLoopAlbums.map((album, index) => {
         const title = escapePortraitText(album.title);
+        const coverSrc = assetUrl(album.cover);
         return `
         <button class="${portraitCardClasses(album)}" data-album-index="${index}" data-title="${title}" aria-label="${title}">
-          ${album.cover ? `<img src="${album.cover}" alt="" loading="lazy" decoding="async" onerror="this.closest('.portrait-album-card').classList.add('no-cover'); this.remove();" />` : `<span class="portrait-cover-placeholder" aria-hidden="true"></span>`}
+          ${album.cover ? `<img src="${coverSrc}" alt="" loading="lazy" decoding="async" onerror="this.closest('.portrait-album-card').classList.add('no-cover'); this.remove();" />` : `<span class="portrait-cover-placeholder" aria-hidden="true"></span>`}
         </button>
       `}).join("") + `<div class="portraits-snap-track" aria-hidden="true"></div>`;
       portraitsStage.querySelectorAll(".portrait-album-card").forEach(card => {
@@ -4964,10 +4977,11 @@
       const formattedDate = formatPortraitDate(album.date);
       portraitAlbumMeta.textContent = `${formattedDate} / ${album.media.length} FRAMES`;
       portraitsFlow.innerHTML = album.media.map(media => {
+        const mediaSrc = assetUrl(media.src);
         if (media.type === "video") {
-          return `<figure class="portrait-media"><video src="${media.src}" controls playsinline preload="none"></video></figure>`;
+          return `<figure class="portrait-media"><video src="${mediaSrc}" controls playsinline preload="none"></video></figure>`;
         }
-        return `<figure class="portrait-media"><img src="${media.src}" alt="" loading="lazy" decoding="async" /></figure>`;
+        return `<figure class="portrait-media"><img src="${mediaSrc}" alt="" loading="lazy" decoding="async" /></figure>`;
       }).join("");
       portraitAlbumView.scrollTop = 0;
       if (portraitObserver) portraitObserver.disconnect();
@@ -5890,7 +5904,7 @@
       probe.onerror = () => {
         if (token === swiperOrientationToken) setSwiperOrientation("landscape");
       };
-      probe.src = media.src;
+      probe.src = assetUrl(media.src);
     }
 
     function classifyMediaFrame(mediaNode, frameNode) {
@@ -5938,7 +5952,7 @@
       addImage.textContent = activeSlide.src ? "Replace photo" : "Add photo";
       deleteImage.hidden = !activeSlide.src;
       if (activeSlide.src && !isVideoMedia(activeSlide)) {
-        swiperBg.style.backgroundImage = `url("${activeSlide.src}")`;
+        swiperBg.style.backgroundImage = `url("${assetUrl(activeSlide.src)}")`;
       } else {
         swiperBg.style.backgroundImage = placeholderGradient(swiperIndex);
       }
@@ -5955,10 +5969,11 @@
         : (currentCity.video ? { src: currentCity.video, type: "video", title: currentCity.name } : null);
       updateSwiperOrientation(selectedMedia);
       loadDarkroomPreset(selectedMedia);
+      const selectedSrc = assetUrl(selectedMedia?.src);
       if (selectedMedia?.src && isVideoMedia(selectedMedia)) {
-        videoShell.innerHTML = `<video data-media-key="${selectedMedia.src}" src="${selectedMedia.src}" autoplay muted loop playsinline preload="none"></video>`;
+        videoShell.innerHTML = `<video data-media-key="${selectedMedia.src}" src="${selectedSrc}" autoplay muted loop playsinline preload="none"></video>`;
       } else if (selectedMedia?.src) {
-        videoShell.innerHTML = `<img data-media-key="${selectedMedia.src}" src="${selectedMedia.src}" alt="${selectedMedia.title || currentCity.name} main image" loading="lazy" decoding="async" />`;
+        videoShell.innerHTML = `<img data-media-key="${selectedMedia.src}" src="${selectedSrc}" alt="${selectedMedia.title || currentCity.name} main image" loading="lazy" decoding="async" />`;
       } else {
         videoShell.innerHTML = `<div class="curation-video-placeholder">Add subject video<br />16:9 cinematic frame</div>`;
         videoShell.addEventListener("click", pickCityVideo);
@@ -5975,9 +5990,10 @@
         card.className = `swiper-card${slide.src ? "" : " placeholder"}${slideIndex === swiperIndex ? " active" : ""}`;
         card.style.animationDelay = `${displayIndex * 100}ms`;
         card.setAttribute("aria-label", `${slide.title || currentCity.name} slide ${slideIndex + 1}`);
+        const slideSrc = assetUrl(slide.src);
         const thumbMedia = slide.src && isVideoMedia(slide)
-          ? `<video src="${slide.src}" muted playsinline preload="none"></video>`
-          : (slide.src ? `<img src="${slide.src}" alt="${slide.title || currentCity.name} image ${slideIndex + 1}" loading="lazy" decoding="async" />` : "");
+          ? `<video src="${slideSrc}" muted playsinline preload="none"></video>`
+          : (slide.src ? `<img src="${slideSrc}" alt="${slide.title || currentCity.name} image ${slideIndex + 1}" loading="lazy" decoding="async" />` : "");
         card.innerHTML = slide.src
           ? thumbMedia
           : `<span class="swiper-card-placeholder-label">Add photo ${slideIndex + 1}</span>`;
