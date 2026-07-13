@@ -1,0 +1,9 @@
+.git
+node_modules
+scripts
+*.md
+package-lock.json
+assets/*.gif
+assets/works-space-bg.mov
+assets/home-character.gif
+assets/zhirou-walking.gif

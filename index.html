@@ -2990,6 +2990,11 @@
       transform: translateY(14px);
       filter: blur(8px) saturate(.9);
       transition: opacity 1000ms ease, transform 1000ms cubic-bezier(.19,1,.22,1), filter 1000ms ease;
+      min-height: min(60vh, 680px);
+    }
+
+    .portrait-media.is-loaded {
+      min-height: 0;
     }
 
     .portrait-media:nth-child(3n+1) {
@@ -3304,7 +3309,7 @@
         </button>
         <button class="slot placeholder flower-slot" data-slot="flower">Flower<br />walk</button>
         <div class="character-container" aria-hidden="true">
-          <img src="assets/zhirou-walking-transparent.gif" alt="" />
+          <img src="assets/zhirou-walking-transparent.webp" alt="" decoding="async" />
           <div class="character-cloud">nice to meet you</div>
         </div>
         <button class="slot placeholder sea-slot" data-slot="sea">Sea<br />photo</button>
@@ -3325,7 +3330,7 @@
     </section>
 
   <section id="works" class="view" aria-label="Journeys globe">
-      <video class="works-bg-video" src="assets/works-space-bg.mov" autoplay muted loop playsinline preload="none"></video>
+      <video class="works-bg-video" src="assets/works-space-bg.mp4" muted loop playsinline preload="none"></video>
       <canvas id="worksParticles" class="works-particles" aria-hidden="true"></canvas>
       <nav class="works-nav">
         <button data-target="home">Home</button>
@@ -3355,7 +3360,7 @@
     </section>
 
     <section id="portraits" class="view" aria-label="Portraits albums">
-      <video class="portraits-bg-video" src="assets/portraits-bg.mov" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <video class="portraits-bg-video" src="assets/portraits-bg.mov" muted loop playsinline preload="none" aria-hidden="true"></video>
       <canvas id="portraitsBubbleCursor" class="portraits-bubble-cursor" aria-hidden="true"></canvas>
       <nav class="home-nav" aria-label="Portraits navigation">
         <button data-target="home">Home <small>Main</small></button>
@@ -3579,7 +3584,28 @@
       ...USER_ASSETS_LOCKED.aboutImageSlots
     };
 
-    const STATIC_ASSET_VERSION = "20260703-photo-fix";
+    const STATIC_ASSET_VERSION = "20260713-performance";
+
+    // Keep the full visual design, but reduce GPU pressure on modest desktops.
+    const PERFORMANCE_PROFILE = (() => {
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const cores = navigator.hardwareConcurrency || 4;
+      const memory = navigator.deviceMemory || 4;
+      const lowPower = reducedMotion || cores <= 4 || memory <= 4;
+      return {
+        lowPower,
+        maxDpr: lowPower ? 1 : 1.5,
+        particleScale: lowPower ? .45 : .72
+      };
+    })();
+
+    function nextActiveFrame(callback, section, idleDelay = 240) {
+      if (document.hidden || (section && !section.classList.contains("active"))) {
+        window.setTimeout(() => requestAnimationFrame(callback), idleDelay);
+        return;
+      }
+      requestAnimationFrame(callback);
+    }
 
     function assetUrl(src) {
       if (!src || /^(https?:|data:|blob:|file:)/i.test(src)) return src;
@@ -3601,12 +3627,16 @@
         if (node && src && node.getAttribute("src") !== nextSrc) node.setAttribute("src", nextSrc);
       });
       const worksBgVideo = document.querySelector(".works-bg-video");
-      const worksBgSrc = assetUrl(media.worksBackgroundVideo);
+      // A compact H.264 MP4 is already available for the same scene and is
+      // considerably easier for Windows browsers to decode than the MOV.
+      const worksBgSrc = assetUrl("assets/works-space-bg.mp4");
       if (worksBgVideo && media.worksBackgroundVideo && worksBgVideo.getAttribute("src") !== worksBgSrc) {
         worksBgVideo.setAttribute("src", worksBgSrc);
       }
       const homeCharacter = document.querySelector(".character-container img");
-      const homeCharacterSrc = assetUrl(media.homeCharacter);
+      // Animated WebP preserves the transparent animation at less than half
+      // the GIF transfer/decode cost. The locked original remains untouched.
+      const homeCharacterSrc = assetUrl("assets/zhirou-walking-transparent.webp");
       if (homeCharacter && media.homeCharacter && homeCharacter.getAttribute("src") !== homeCharacterSrc) {
         homeCharacter.setAttribute("src", homeCharacterSrc);
       }
@@ -3865,7 +3895,7 @@
     }
 
     function resizeHomeRipple() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, PERFORMANCE_PROFILE.maxDpr);
       const rect = home.getBoundingClientRect();
       homeRippleCanvas.width = Math.max(1, Math.floor(rect.width * dpr));
       homeRippleCanvas.height = Math.max(1, Math.floor(rect.height * dpr));
@@ -4068,7 +4098,7 @@
       const rect = home.getBoundingClientRect();
       const t = homeRippleState.clickLevel / 8;
       const desktopPressure = window.innerWidth >= 1100 ? .68 : 1;
-      const desired = Math.round((56 * (1 - t) + 12 * t) * desktopPressure);
+      const desired = Math.round((56 * (1 - t) + 12 * t) * desktopPressure * PERFORMANCE_PROFILE.particleScale);
       while (homeRippleState.raindrops.length < desired) {
         homeRippleState.raindrops.push(createRainDrop(rect.width || window.innerWidth, rect.height || window.innerHeight, true));
       }
@@ -4180,7 +4210,7 @@
 
     function drawHomeRipple() {
       if (!home.classList.contains("active")) {
-        requestAnimationFrame(drawHomeRipple);
+        nextActiveFrame(drawHomeRipple, home);
         return;
       }
       const rect = home.getBoundingClientRect();
@@ -4271,7 +4301,7 @@
       homeRippleCtx.shadowBlur = 0;
       homeRippleCtx.restore();
 
-      requestAnimationFrame(drawHomeRipple);
+      nextActiveFrame(drawHomeRipple, home);
     }
 
     document.addEventListener("mousemove", event => {
@@ -4535,7 +4565,7 @@
     function resizeAboutGalaxy() {
       if (!ABOUT_GALAXY_ENABLED || !aboutGalaxyCanvas || !aboutGalaxyCtx) return;
       const rect = document.getElementById("about").getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, PERFORMANCE_PROFILE.maxDpr);
       aboutGalaxyCanvas.width = Math.max(1, Math.floor(rect.width * dpr));
       aboutGalaxyCanvas.height = Math.max(1, Math.floor(rect.height * dpr));
       aboutGalaxyCanvas.style.width = `${rect.width}px`;
@@ -4545,7 +4575,7 @@
     }
 
     function seedAboutGalaxy(width, height) {
-      const desired = Math.max(340, Math.round((width * height) / 1850));
+      const desired = Math.max(PERFORMANCE_PROFILE.lowPower ? 110 : 220, Math.round((width * height) / (PERFORMANCE_PROFILE.lowPower ? 6200 : 3200)));
       while (aboutGalaxyStars.length < desired) {
         aboutGalaxyStars.push({
           x: Math.random() * width,
@@ -4563,7 +4593,7 @@
       if (!ABOUT_GALAXY_ENABLED || !aboutGalaxyCanvas || !aboutGalaxyCtx) return;
       const about = document.getElementById("about");
       const rect = about.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, PERFORMANCE_PROFILE.maxDpr);
       if (aboutGalaxyCanvas.width !== Math.floor(rect.width * dpr)) resizeAboutGalaxy();
       aboutGalaxyCtx.clearRect(0, 0, rect.width, rect.height);
       if (about.classList.contains("active")) {
@@ -4612,7 +4642,7 @@
         aboutGalaxyCtx.restore();
         aboutGalaxyMouseActive += (0 - aboutGalaxyMouseActive) * .015;
       }
-      requestAnimationFrame(drawAboutGalaxy);
+      nextActiveFrame(drawAboutGalaxy, about);
     }
 
     if (ABOUT_GALAXY_ENABLED) {
@@ -4807,7 +4837,8 @@
     const bubblePointer = { x: innerWidth * .5, y: innerHeight * .5, active: false, lastEmit: 0 };
 
     function resizePortraitBubbleCursor() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (!portraitsSection.classList.contains("active")) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, PERFORMANCE_PROFILE.maxDpr);
       portraitsBubbleCursor.width = Math.max(1, Math.floor(innerWidth * dpr));
       portraitsBubbleCursor.height = Math.max(1, Math.floor(innerHeight * dpr));
       portraitsBubbleCursor.style.width = `${innerWidth}px`;
@@ -4838,7 +4869,7 @@
       const active = portraitsSection.classList.contains("active") && !portraitsSection.classList.contains("album-open");
       if (!active) {
         if (bubbleParticles.length) bubbleParticles.length = 0;
-        requestAnimationFrame(drawPortraitBubbleCursor);
+        nextActiveFrame(drawPortraitBubbleCursor, portraitsSection);
         return;
       }
       portraitsBubbleCtx.clearRect(0, 0, innerWidth, innerHeight);
@@ -4881,7 +4912,7 @@
           portraitsBubbleCtx.arc(p.x - radius * .32, p.y - radius * .36, Math.max(1, radius * .1), 0, Math.PI * 2);
           portraitsBubbleCtx.fill();
       }
-      requestAnimationFrame(drawPortraitBubbleCursor);
+      nextActiveFrame(drawPortraitBubbleCursor, portraitsSection);
     }
 
     function positiveModulo(value, size) {
@@ -5020,15 +5051,25 @@
       portraitsFlow.innerHTML = album.media.map(media => {
         const mediaSrc = assetUrl(media.src);
         if (media.type === "video") {
-          return `<figure class="portrait-media"><video src="${mediaSrc}" controls playsinline preload="none"></video></figure>`;
+          return `<figure class="portrait-media"><video data-src="${mediaSrc}" controls playsinline preload="none"></video></figure>`;
         }
-        return `<figure class="portrait-media"><img src="${mediaSrc}" alt="" loading="lazy" decoding="async" /></figure>`;
+        return `<figure class="portrait-media"><img data-src="${mediaSrc}" alt="" loading="lazy" decoding="async" /></figure>`;
       }).join("");
       portraitAlbumView.scrollTop = 0;
       if (portraitObserver) portraitObserver.disconnect();
       portraitObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            const media = entry.target.querySelector("img[data-src], video[data-src]");
+            if (media && !media.getAttribute("src")) {
+              const markLoaded = () => entry.target.classList.add("is-loaded");
+              media.addEventListener("load", markLoaded, { once: true });
+              media.addEventListener("loadeddata", markLoaded, { once: true });
+              media.addEventListener("error", markLoaded, { once: true });
+              media.setAttribute("src", media.dataset.src);
+              media.removeAttribute("data-src");
+              if (media.tagName === "VIDEO") media.load();
+            }
             entry.target.classList.add("is-visible");
             portraitObserver.unobserve(entry.target);
           }
@@ -5061,7 +5102,6 @@
     });
 
     window.addEventListener("resize", resizePortraitBubbleCursor);
-    resizePortraitBubbleCursor();
     requestAnimationFrame(drawPortraitBubbleCursor);
 
     function closePortraitAlbum() {
@@ -5100,20 +5140,27 @@
       if (id === "home") startHomeAmbience();
       else stopHomeAmbience();
       if (id === "works") {
+        worksBgVideo.play().catch(() => {});
         startWorksMusic();
         startGlobe();
         resetWorksIntroForManualPlay();
       } else {
+        worksBgVideo.pause();
         stopWorksMusic();
         resetWorksIntroForManualPlay();
         globeRunning = false;
       }
       if (id === "portraits") {
+        portraitsBgVideo.play().catch(() => {});
         startPortraitMusic();
+        resizePortraitBubbleCursor();
         renderPortraits();
+        portraitsScrollTrigger?.play?.();
         requestAnimationFrame(layoutPortraitAlbums);
       } else {
+        portraitsBgVideo.pause();
         stopPortraitMusic();
+        portraitsScrollTrigger?.pause?.();
         portraitsSection.classList.remove("album-open", "album-closing");
         document.body.classList.remove("portrait-album-open");
       }
@@ -5131,6 +5178,20 @@
       }
       activateView(id);
     }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        worksBgVideo.pause();
+        portraitsBgVideo.pause();
+        document.querySelectorAll("video").forEach(video => video.pause());
+        stopAllAmbientAudio();
+        return;
+      }
+      const current = document.querySelector(".view.active")?.id;
+      if (current === "works") worksBgVideo.play().catch(() => {});
+      if (current === "portraits") portraitsBgVideo.play().catch(() => {});
+      if (ambientAudioEnabled) playEnabledAmbientForCurrentView();
+    });
 
     // Three.js globe: vector country boundaries fetched from GeoJSON, with clickable city markers.
     const worksSection = document.getElementById("works");
@@ -5536,7 +5597,7 @@
         powerPreference: "high-performance"
       });
       globeRenderer.setClearColor(0x000000, 0);
-      globeRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      globeRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, PERFORMANCE_PROFILE.maxDpr));
       raycaster = new THREE.Raycaster();
       pointer = new THREE.Vector2();
 
@@ -5706,7 +5767,7 @@
 
     function resizeWorksParticles() {
       const rect = worksSection.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, PERFORMANCE_PROFILE.maxDpr);
       worksParticles.width = Math.max(1, Math.floor(rect.width * dpr));
       worksParticles.height = Math.max(1, Math.floor(rect.height * dpr));
       worksParticles.style.width = `${rect.width}px`;
@@ -5728,14 +5789,15 @@
           alpha: .18 + Math.random() * .42
         });
       }
-      if (worksStarParticles.length > 180) {
-        worksStarParticles.splice(0, worksStarParticles.length - 180);
+      const maxStars = PERFORMANCE_PROFILE.lowPower ? 55 : 110;
+      if (worksStarParticles.length > maxStars) {
+        worksStarParticles.splice(0, worksStarParticles.length - maxStars);
       }
     }
 
     function drawWorksParticles() {
       const rect = worksSection.getBoundingClientRect();
-      if (worksParticles.width !== Math.floor(rect.width * Math.min(window.devicePixelRatio || 1, 2))) {
+      if (worksParticles.width !== Math.floor(rect.width * Math.min(window.devicePixelRatio || 1, PERFORMANCE_PROFILE.maxDpr))) {
         resizeWorksParticles();
       }
       worksParticleCtx.clearRect(0, 0, rect.width, rect.height);
@@ -5759,7 +5821,7 @@
           worksParticleCtx.fill();
         }
       }
-      requestAnimationFrame(drawWorksParticles);
+      nextActiveFrame(drawWorksParticles, worksSection);
     }
 
     worksSection.addEventListener("pointermove", event => {
