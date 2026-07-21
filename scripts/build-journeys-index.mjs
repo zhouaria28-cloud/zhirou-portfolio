@@ -16,7 +16,9 @@ const locations = [
   { id: "melbourne", name: "Melbourne", cn: "墨尔本", folder: "墨尔本" },
   { id: "new-zealand", name: "New Zealand", cn: "新西兰", folder: "新西兰" },
   { id: "pingtan", name: "PINGTAN", cn: "平潭", folder: "平潭" },
-  { id: "huangshan", name: "HUANGSHAN", cn: "黄山", folder: "黄山" }
+  { id: "huangshan", name: "HUANGSHAN", cn: "黄山", folder: "黄山" },
+  { id: "sydney", name: "Sydney", cn: "悉尼", folder: "悉尼" },
+  { id: "hobart", name: "Hobart", cn: "霍巴特", folder: "霍巴特" }
 ];
 
 const imageExts = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".heic"]);

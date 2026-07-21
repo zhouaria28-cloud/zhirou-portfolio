@@ -3548,14 +3548,14 @@
         namecard: ""
       },
       aboutImageSlots: {
-        about_student: "assets-optimized/about-melbourne-uni-student.webp",
-        about_consulting: "assets-optimized/about-application-operations.webp",
-        about_media: "assets-optimized/about-content-strategist.webp",
-        about_photo: "assets-optimized/about-documentary-photographer.webp"
+        about_student: "assets/about-melbourne-uni-student.jpg",
+        about_consulting: "assets/about-application-operations.jpg",
+        about_media: "assets/about-content-strategist.jpg",
+        about_photo: "assets/about-documentary-photographer.jpg"
       },
       aboutEventPhotography: [
-        "assets-optimized/about-event-photography-1.webp",
-        "assets-optimized/about-event-photography-2.webp"
+        "assets/about-event-photography-1.jpg",
+        "assets/about-event-photography-2.jpg"
       ],
       aboutStreetPhotography: [
         "https://res.cloudinary.com/jorpvc9a/video/upload/v1782986252/copy_6E7D05CF-3E1C-4831-8BA3-604B050763BC_ylhr0r.mov",
@@ -3571,7 +3571,9 @@
         melbourne: { images: [], video: "" },
         "new-zealand": { images: [], video: "" },
         pingtan: { images: [], video: "" },
-        huangshan: { images: [], video: "" }
+        huangshan: { images: [], video: "" },
+        sydney: { images: [], video: "" },
+        hobart: { images: [], video: "" }
       }
     };
     // =====================================================================
@@ -3705,7 +3707,9 @@
       { id: "melbourne", name: "Melbourne", cn: "墨尔本", lat: -37.81, lng: 144.96 },
       { id: "new-zealand", name: "New Zealand", cn: "新西兰", lat: -40.90, lng: 174.88 },
       { id: "pingtan", name: "PINGTAN", cn: "平潭", lat: 25.50, lng: 119.78 },
-      { id: "huangshan", name: "HUANGSHAN", cn: "黄山", lat: 30.13, lng: 118.17 }
+      { id: "huangshan", name: "HUANGSHAN", cn: "黄山", lat: 30.13, lng: 118.17 },
+      { id: "sydney", name: "Sydney", cn: "悉尼", lat: -33.8688, lng: 151.2093 },
+      { id: "hobart", name: "Hobart", cn: "霍巴特", lat: -42.8821, lng: 147.3272 }
     ];
 
     const JOURNEYS_BY_ID = Object.fromEntries((window.JOURNEYS_INDEX?.journeys || []).map(journey => [journey.id, journey]));
