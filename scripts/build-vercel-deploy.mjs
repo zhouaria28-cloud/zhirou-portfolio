@@ -124,6 +124,10 @@ function filterIndex(indexRel, globalName, collectionKey) {
 ensureDir(deployRoot);
 
 let html = fs.readFileSync(path.join(sourceRoot, "index.html"), "utf8");
+const indexCacheVersion = Date.now();
+html = html
+  .replace(/assets\/journeys-index\.js(?:\?v=[^"']*)?/g, `assets/journeys-index.js?v=${indexCacheVersion}`)
+  .replace(/assets\/portraits-index\.js(?:\?v=[^"']*)?/g, `assets/portraits-index.js?v=${indexCacheVersion}`);
 fs.writeFileSync(path.join(deployRoot, "index.html"), html);
 
 copyFile("package.json");
