@@ -3,6 +3,24 @@
   "trailingSlash": false,
   "headers": [
     {
+      "source": "/assets/journeys-index.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/portraits-index.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         {
